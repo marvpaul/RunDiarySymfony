@@ -3,7 +3,7 @@
 {% block content %}
 
     {% if not is_granted("ROLE_USER") %}
-        Hi there --> <a href="/public/login"> login</a>
+        Hi there --> <a href="/login"> login</a>
     {% endif %}
     <div class="card text-white bg-primary">
         <div class="card-body" id="overview">

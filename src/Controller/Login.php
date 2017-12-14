@@ -34,9 +34,9 @@ class Login extends Controller {
      */
     public function after_login(UserInterface $loggedin_user = null){
         if($loggedin_user == null){
-            return $this->redirect('/public/');
+            return $this->redirect('/');
         } else{
-            return $this->redirect('/public/profile/'. $loggedin_user->getName());
+            return $this->redirect('/profile/'. $loggedin_user->getName());
         }
     }
 }

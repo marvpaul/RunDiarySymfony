@@ -4,7 +4,7 @@
 
     {% set can_edit = is_granted('edit', user) %}
     {% if not is_granted("ROLE_USER") %}
-        Hi there --> <a href="/public/login"> login</a>
+        Hi there --> <a href="/login"> login</a>
     {% endif %}
     <div class="card text-white bg-primary">
         <div class="card-body" id="overview">
@@ -31,7 +31,7 @@
                                 <td>{{ entry.distance }}</td>
                                 <td>{{ entry.time}}</td>
                                 <td>{{ entry.getAvgSpeed() }}</td>
-                                {% if can_edit %}<td><a href="/public/delete/{{ entry.id}}/{{ user.id }}" class="delete-button btn btn-block btn-info">Delete</a></td>{% endif %}
+                                {% if can_edit %}<td><a href="/delete/{{ entry.id}}/{{ user.id }}" class="delete-button btn btn-block btn-info">Delete</a></td>{% endif %}
                             </tr>
                         {% endfor %}
                     </table>

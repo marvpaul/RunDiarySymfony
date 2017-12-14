@@ -11,10 +11,10 @@
     </head>
     <body>
         {% block body %}
-            <h1 style="text-align: center; "><a href="/public/">My awesome run diary</a></h1>
+            <h1 style="text-align: center; "><a href="/">My awesome run diary</a></h1>
             {% if is_granted("ROLE_USER") %}
                 Hi {{ app.user.name }}
-                --> <a href="/public/logout">Logout</a>
+                --> <a href="/logout">Logout</a>
             {% endif %}
             {% block content %}{% endblock %}
         {% endblock %}

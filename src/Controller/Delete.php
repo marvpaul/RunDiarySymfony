@@ -25,7 +25,7 @@ class Delete extends Controller {
         }
 
         //Redirect back to profile
-        return $this->redirect('/public/profile/'. $loggedin_user->getName());
+        return $this->redirect('/profile/'. $loggedin_user->getName());
 
     }
 }
