@@ -2,9 +2,16 @@
 namespace App\Controller;
 use App\Entity\Entry;
 use App\Entity\User;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use \Symfony\Component\Form\Extension\Core\Type\TimeType;
+use \Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class DefaultController extends Controller {
 
