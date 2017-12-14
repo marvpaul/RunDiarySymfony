@@ -42,6 +42,11 @@
         </div>
     </div>
     {% if can_edit %}
+        {% if errors|length > 0 %}
+            {% for error in errors %}
+                {{ error }}<br>
+            {% endfor %}
+        {% endif %}
         You're the owner of this profile!!!
         {% form_theme form 'bootstrap_3_layout.html.twig' %}
         {# templates/default/new.html.twig #}

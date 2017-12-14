@@ -88,7 +88,11 @@ class Profile extends Controller {
                  */
                 $errorsString = (string) $errors;
 
-                return new Response($errorsString);
+                return $this->render('user.twig', array(
+                    'user' => $user,
+                    'form' => $form->createView(),
+                    'errors' => $errors
+                ));
             }
 
             $entry->setAvgSpeed(0);
@@ -98,7 +102,8 @@ class Profile extends Controller {
 
         return $this->render('user.twig', array(
             'user' => $user,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'errors' => []
         ));
 
 
