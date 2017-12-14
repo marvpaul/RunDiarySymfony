@@ -1,0 +1,27 @@
+security:
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
+    # https://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+    providers:
+        my_db_provider:        # Name des Providers
+              entity:
+                class: App\Entity\User # muss UserInterface implementieren
+                property: name    # oder email, oder ...
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: ~
+            form_login:
+              login_path: login
+              check_path: login
+
+            # activate different ways to authenticate
+
+            # http_basic: ~
+            # https://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
+
+            # form_login: ~
+            # https://symfony.com/doc/current/cookbook/security/form_login_setup.html

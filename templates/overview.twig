@@ -1,20 +1,26 @@
-<div class="alert alert-dismissible alert-success col-3" style="text-align: center; margin: auto; ">
-    Entire entries: <br>
-    <div class="text-shadow">
-        {{ entireDays }}
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <div class="card text-white bg-primary">
+        <div class="card-body" id="overview">
+            <div class="alert alert-dismissible alert-success col-3" style="text-align: center; margin: auto; ">
+                <table>
+                    <tr>
+                        <td>Username</td>
+                        <td>Day trained</td>
+                        <td>Entire distance</td>
+                    </tr>
+                {% for user in users %}
+
+                    <tr>
+                        <td><a href="profile/{{ user.name }}">{{ user.name }}</a></td>
+                        <td>{{ user.days_trained }}</td>
+                        <td>{{ user.entire_distance }}</td>
+                    </tr>
+                {% endfor %}
+                </table>
+            </div>
+        </div>
     </div>
-    <br>
-</div>
-<br>
-<div class="alert alert-dismissible alert-success col-3" style="text-align: center; margin: auto; ">
-    {% for cust_name, runEntries in users %}
-        <tr>
-            <td>{{ date }}</td>
-            <td>{{ runEntries.entireDays }} km </td>
-            <td>{{ runEntries.entireDistance }} h</td>
-            <td>{{ runEntries.avgSpeed|round(2, 'floor') }} km/h</td>
-            <td><a href="delete/{{ date}}" class="delete-button btn btn-block btn-info">Delete</a></td>
-        </tr>
-    {% endfor %}
-    <br>
-</div>
+
+{% endblock %}

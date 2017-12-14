@@ -1,5 +1,7 @@
 <?php
 namespace App\Controller;
+use App\Entity\Entry;
+use App\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,14 +17,34 @@ class DefaultController extends Controller {
 
 
 
-
-
     /**
      * @Route("/")
      * @return Response
      */
     public function index(Request $request) {
+        $users = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->findAll();
+        $entries = $this->getDoctrine()
+            ->getRepository(Entry::class)
+            ->findAll();
 
+        $entriesPerUser = null;
+        if($entries != null){
+            //Add entries to user
+        } else{
+            foreach ($users as $user){
+                $user->days_trained = 0;
+                $user->entire_distance = 0;
+            }
+        }
+
+
+
+        return $this->render('overview.twig', array(
+            'users' => $users
+        ));
+        /*
         $json_data = file_get_contents('data.json');
         $json_data = json_decode($json_data, true);
 
@@ -82,13 +104,8 @@ class DefaultController extends Controller {
                 }
                 file_put_contents("data.json", json_encode($json_data));
             }
-        }
+        }*/
 
-        return $this->render('index.html.twig', array(
-            'diary' => $json_data,
-            'entireDays' => count($json_data),
-            'daysBetweenEndAndBeginning' => $days_between,
-            'form' => $form->createView()
-        ));
+
     }
 }
