@@ -2,16 +2,17 @@
 
 {% block content %}
 
+    {% set can_edit = is_granted('edit', user) %}
     {% if not is_granted("ROLE_USER") %}
         Hi there --> <a href="/public/login"> login</a>
     {% endif %}
     <div class="card text-white bg-primary">
         <div class="card-body" id="overview">
             <div class="alert alert-dismissible alert-success col-3" style="text-align: center; margin: auto; ">
-                Name -> {{ user.name }}
-                Days_trained -> {{ user.days_trained }}
-                Time from first entry to today -> {{ user.entire_time }}
-                Entire distance -> {{ user.entire_distance }}
+                Name -> {{ user.name }}<br>
+                Days_trained -> {{ user.days_trained }}<br>
+                Time from first entry to today -> {{ user.entire_time }}<br>
+                Entire distance -> {{ user.entire_distance }}<br>
                 All entries:
                 <table>
                     <tr>
@@ -19,23 +20,28 @@
                         <td>Distance</td>
                         <td>Time</td>
                         <td>Avg. speed</td>
-                        <td>Delete</td>
+                        {% if can_edit %}<td>Delete</td>{% endif %}
                     </tr>
                     {% for entry in user.entries %}
                         <tr>
-                            <td>{{ entry.date }}</td>
+                            <td>{{ entry.date |date('Y-m-d')}}</td>
                             <td>{{ entry.distance }}</td>
-                            <td>{{ entry.time }}</td>
-                            <td>{{ entry.speed }}</td>
-                            <td><a href="delete/{{ entry.date}}/{{ user.name }}" class="delete-button btn btn-block btn-info">Delete</a></td>
+                            <td>{{ entry.time |date('i')}}</td>
+                            <td>{{ entry.getAvgSpeed() }}</td>
+                            {% if can_edit %}<td><a href="delete/{{ entry.date |date('Y-m-d')}}/{{ user.name }}" class="delete-button btn btn-block btn-info">Delete</a></td>{% endif %}
                         </tr>
                     {% endfor %}
                 </table>
             </div>
         </div>
     </div>
-    {% if is_granted('edit', user) %}
+    {% if can_edit %}
         You're the owner of this profile!!!
+        {% form_theme form 'bootstrap_3_layout.html.twig' %}
+        {# templates/default/new.html.twig #}
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
     {% endif %}
 
 {% endblock %}

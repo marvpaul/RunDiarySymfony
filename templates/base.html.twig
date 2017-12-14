@@ -14,7 +14,7 @@
             <h1 style="text-align: center; ">My awesome run diary</h1>
             {% if is_granted("ROLE_USER") %}
                 Hi {{ app.user.name }}
-                --> <a href="logout">Logout</a>
+                --> <a href="/public/logout">Logout</a>
             {% endif %}
             {% block content %}{% endblock %}
         {% endblock %}

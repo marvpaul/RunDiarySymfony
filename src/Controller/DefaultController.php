@@ -32,6 +32,10 @@ class DefaultController extends Controller {
         $entriesPerUser = null;
         if($entries != null){
             //Add entries to user
+            foreach ($users as $user){
+                $user->days_trained = 0;
+                $user->entire_distance = 0;
+            }
         } else{
             foreach ($users as $user){
                 $user->days_trained = 0;
