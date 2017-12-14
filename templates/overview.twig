@@ -1,0 +1,20 @@
+<div class="alert alert-dismissible alert-success col-3" style="text-align: center; margin: auto; ">
+    Entire entries: <br>
+    <div class="text-shadow">
+        {{ entireDays }}
+    </div>
+    <br>
+</div>
+<br>
+<div class="alert alert-dismissible alert-success col-3" style="text-align: center; margin: auto; ">
+    {% for cust_name, runEntries in users %}
+        <tr>
+            <td>{{ date }}</td>
+            <td>{{ runEntries.entireDays }} km </td>
+            <td>{{ runEntries.entireDistance }} h</td>
+            <td>{{ runEntries.avgSpeed|round(2, 'floor') }} km/h</td>
+            <td><a href="delete/{{ date}}" class="delete-button btn btn-block btn-info">Delete</a></td>
+        </tr>
+    {% endfor %}
+    <br>
+</div>

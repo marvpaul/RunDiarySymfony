@@ -1,0 +1,34 @@
+<h2>Add a new entry</h2>
+<form class="col-8">
+    <div class="form-group row">
+        <label for="input-date" class="col-2 col-form-label">Date</label>
+        <div class="col-10">
+            <input  class="form-control" type="date" name="date" value="2017-11-12" id="input-date">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="input-time" class="col-2 col-form-label">Time</label>
+        <div class="col-10">
+            <input  class="form-control" value="10:10:10" type="time" name="time" id="input-time">
+            <br>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="input-distance" class="col-2 col-form-label">Distance</label>
+        <div class="col-10">
+            <input  class="form-control" type="number" value="10" name="distance" id="input-distance">
+            <br>
+        </div>
+    </div>
+    <div class="alert alert-success" id="form-submit-mess" role="alert" style="display: none; ">
+    </div>
+    {% form_theme form 'bootstrap_3_layout.html.twig' %}
+    {# templates/default/new.html.twig #}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+    <div class="btn btn-warning" id="submit-entry">
+        Save
+    </div>
+</form>

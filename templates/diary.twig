@@ -1,0 +1,21 @@
+<table class="table table-striped col-12" id="diary">
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Distance</th>
+        <th>Time</th>
+        <th>Average Speed</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for date, runEntry in diary %}
+        <tr>
+            <td>{{ date }}</td>
+            <td>{{ runEntry.distance }} km </td>
+            <td>{{ runEntry.time }} h</td>
+            <td>{{ runEntry.avgSpeed|round(2, 'floor') }} km/h</td>
+            <td><a href="delete/{{ date}}" class="delete-button btn btn-block btn-info">Delete</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
