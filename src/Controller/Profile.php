@@ -100,7 +100,7 @@ class Profile extends Controller {
 
 
         $entire_disance = 0;
-        $user_entries = null;
+        $user_entries = [];
         $days_between = 0;
         foreach($entries as $entry){
             //Get owner of the entry
