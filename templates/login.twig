@@ -8,7 +8,7 @@
     {% if is_granted("ROLE_USER") %}
         Hi {{ app.user.name }},
         you're logged in. Wanna to logout?
-        --> <a href="logout">Logout</a>
+        --> <a href="/public/index.php/logout">Logout</a>
     {% endif %}
 
     {% if  not is_granted("ROLE_USER") %}
