@@ -1,9 +1,7 @@
 /vendor/
 
 ###> symfony/framework-bundle ###
-.env
 /public/bundles/
-/var/cache
 /var/log
 /vendor/
 ###< symfony/framework-bundle ###
