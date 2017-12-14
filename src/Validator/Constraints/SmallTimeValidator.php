@@ -4,11 +4,12 @@ namespace App\Validator\Constraints;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-class InvalidTimeValidator extends ConstraintValidator
+class SmallTimeValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint)
     {
-        if (!preg_match('/^[a-zA-Z0-9]+$/', $value, $matches)) {
+        if ($value->getTimestamp() <= 0) {
+            $value = $value->getTimestamp();
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ string }}', $value)
                 ->addViolation();

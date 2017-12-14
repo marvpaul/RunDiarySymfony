@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use App\Validator\Constraints as AcmeAssert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EntryRepository")
@@ -21,13 +23,36 @@ class Entry
      */
     private $user_id;
 
-    /** @ORM\Column(type="date") */
+    /** @ORM\Column(type="date")
+     *  @Assert\Type(
+     *     type="datetime",
+     *     message="The value {{ value }} is not a valid {{ type }}."
+     * )
+     * @Assert\LessThan(
+     *     "now",
+     *     message="Date cant be in future"
+     * )*/
     private $date;
 
-    /** @ORM\Column(type="time") */
+    /** @ORM\Column(type="time")
+     *  @Assert\Type(
+     *     type="datetime",
+     *     message="The value {{ value }} is not a valid {{ type }}."
+     * )
+     * @AcmeAssert\SmallTime
+     */
     private $time;
 
-    /** @ORM\Column(type="decimal") */
+    /** @ORM\Column(type="decimal")
+     *  @Assert\Type(
+     *     type="integer",
+     *     message="The value {{ value }} is not a valid {{ type }}."
+     * )
+     * @Assert\GreaterThan(
+     *     0,
+     *     message="Value must be greater than 0"
+     * )
+     */
     private $distance;
 
     /** @ORM\Column(type="decimal") */

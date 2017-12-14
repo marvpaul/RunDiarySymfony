@@ -64,7 +64,8 @@ class Profile extends Controller {
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
+
             $distance = $form["Distance"]->getData();
             $date = $form["Date"]->getData();
             $time = $form["Time"]->getData();
@@ -74,6 +75,22 @@ class Profile extends Controller {
             $entry->setDistance($distance);
             $entry->setTime($time);
             $entry->setUserId($loggedin_user->getId());
+
+
+            $validator = $this->get('validator');
+            $errors = $validator->validate($entry);
+
+            if (count($errors) > 0) {
+                /*
+                 * Uses a __toString method on the $errors variable which is a
+                 * ConstraintViolationList object. This gives us a nice string
+                 * for debugging.
+                 */
+                $errorsString = (string) $errors;
+
+                return new Response($errorsString);
+            }
+
             $entry->setAvgSpeed(0);
             $manager->persist($entry);
             $manager->flush();

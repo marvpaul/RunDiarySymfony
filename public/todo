@@ -1,0 +1,26 @@
+1. Basisfunktionalität
+
+Läuferübersicht:
+    Läufername (= Nutzername)
+    Anzahl der Lauftage
+    Gesamte bisher gelaufene Strecke
+Läuferprofil:
+    Läufername
+    Anzahl der Lauftage
+    Gesamttage seit dem ersten Lauftag (bis heute, nicht bis zum letzten hinterlegten Lauftag)
+    Gesamte bisher gelaufene Strecke
+--> Werte berechnen
+Tabelle mit allen Laufeinträgen, absteigend sortiert nach Datum (neue Einträge oben).
+
+2. Fehlerbehandlung bei der Eingabe
+
+Grundlegende Validierung:
+jeweils dem Nutzer als Fehlermeldung angezeigt werden
+
+-Falsches Datumsformat (z.B. für alte Browser, die input type=date nicht kennen)
+-Ungültiges Streckenformat (keine Zahl)
+-Negative Strecke oder Strecke der Länge 0
+-Ungültiges Zeitformat
+-Negative Zeit oder Zeit der Länge 0
+-Datum in der Zukunft
+Durchschnittsgeschwindigkeit über 40 km/h

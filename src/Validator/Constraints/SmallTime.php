@@ -5,8 +5,12 @@
  * Date: 14.12.17
  * Time: 17:55
  */
+namespace App\Validator\Constraints;
 
-class InvalidTime extends \Symfony\Component\Validator\Constraint
+/**
+ * @Annotation
+ */
+class SmallTime extends \Symfony\Component\Validator\Constraint
 {
-    public $message = "This seems not to be a valid time";
+    public $message = "Time can't be negative or 0";
 }
