@@ -1,38 +1,31 @@
 <?php
 namespace App\Controller;
+use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\User;
+use App\Entity\Entry;
+use Symfony\Component\Security\Core\User\UserInterface;
+
 class Delete extends Controller {
     /**
-     * @Route("/delete/{date}")
+     * @Route("/delete/{entryid}/{userid}")
      * @param $date a date to delete
      * @return Response
      */
-    public function delete($date) {
-
-        //Load json from data.json and decode to assoc array
-        $json_data = file_get_contents('data.json');
-        $json_data = json_decode($json_data, true);
-
-        //Check if there is any entry
-        if(!$json_data == null){
-            //Replace old entry?
-            $lenArr = count($json_data);
-            unset($json_data[$date]);
-            if($lenArr != count($json_data)){
-                file_put_contents("data.json", json_encode($json_data));
-                //echo 'true';
-            } else{
-              //  echo 'false';
-            }
-        } else {
-            //echo 'false';
-            //TODO: Add flashes?
+    public function delete($entryid, $userid, ObjectManager $manager, UserInterface $loggedin_user = null) {
+        if($loggedin_user->getId() == $userid){
+            $entry = $manager
+                ->getRepository(Entry::class)
+                ->findOneBy(['id' => $entryid, 'user_id' => $userid]);
+            $manager->remove($entry);
+            $manager->flush();
         }
-        // redirect to a route with parameters
-        return $this->redirectToRoute('index');
+
+        //Redirect back to profile
+        return $this->redirect('/public/profile/'. $loggedin_user->getName());
 
     }
 }
