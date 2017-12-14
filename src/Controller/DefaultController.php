@@ -30,17 +30,23 @@ class DefaultController extends Controller {
             ->findAll();
 
         $entriesPerUser = null;
-        if($entries != null){
-            //Add entries to user
-            foreach ($users as $user){
-                $user->days_trained = 0;
-                $user->entire_distance = 0;
+        foreach ($users as $user){
+            $user->days_trained = 0;
+            $user->entire_distance = 0;
+        }
+        foreach($entries as $entry){
+            //Get owner of the entry
+            $entry_owner = $this->getDoctrine()
+                ->getRepository(User::class)
+                ->findOneBy(['id' => $entry->getUserId()]);
+            foreach($users as $user){
+                if($entry_owner->getName() == $user->getName() ){
+                    $user->user_entries[] = $entry;
+                    $user->entire_distance += $entry->getDistance();
+                    $user->days_trained += 1;
+                }
             }
-        } else{
-            foreach ($users as $user){
-                $user->days_trained = 0;
-                $user->entire_distance = 0;
-            }
+
         }
 
 

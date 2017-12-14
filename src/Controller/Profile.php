@@ -98,8 +98,10 @@ class Profile extends Controller {
             ->getRepository(Entry::class)
             ->findBy(['user_id' => $user->getId()]);
 
+
         $entire_disance = 0;
         $user_entries = null;
+        $days_between = 0;
         foreach($entries as $entry){
             //Get owner of the entry
             $entry_owner = $this->getDoctrine()
@@ -111,13 +113,15 @@ class Profile extends Controller {
             }
         }
 
-        uasort($user_entries, function ( $a, $b ) {
-            return $a->getDate()->getTimestamp() - $b->getDate()->getTimestamp();
-        });
+        if(count($entries) >= 2){
+            uasort($user_entries, function ( $a, $b ) {
+                return $b->getDate()->getTimestamp() - $a->getDate()->getTimestamp();
+            });
+            $start_date = $user_entries[0]->getDate();
+            $end_date = new DateTime();
+            $days_between = floor(abs($start_date->getTimestamp() - $end_date->getTimestamp()) / 86400);
+        }
 
-        $start_date = $user_entries[0]->getDate();
-        $end_date = new DateTime();
-        $days_between = floor(abs($start_date->getTimestamp() - $end_date->getTimestamp()) / 86400);
 
         $user->entries = $user_entries;
         $user->days_trained = count($user_entries);
