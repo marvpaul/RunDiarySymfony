@@ -26,7 +26,7 @@
                 <input type="hidden" name="_target_path" value="/account" />
             #}
 
-            <button type="submit">login</button>
+            <button action="{{ path('login') }}" method="post">login</button>
         </form>
     {% endif %}
 
