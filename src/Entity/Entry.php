@@ -34,7 +34,7 @@ class Entry
      * )*/
     private $date;
 
-    /** @ORM\Column(type="time")
+    /** @ORM\Column(type="decimal")
      *  @Assert\Type(
      *     type="datetime",
      *     message="The value {{ value }} is not a valid {{ type }}."

@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 use App\Entity\Entry;
+use DateTime;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -26,34 +27,6 @@ class Profile extends Controller {
             ->getRepository(User::class)
             ->findOneBy(['name' => $username]);
 
-        //Ooops, user does not exists :/
-        if (!$user) {
-            return $this->render('not_found.twig', array(
-               'message' => 'User ' . $username . ' not found'
-            ));
-        }
-
-        //Get all user entries
-        $entries = $this->getDoctrine()
-            ->getRepository(Entry::class)
-            ->findBy(['user_id' => $user->getId()]);
-
-        $user_entries = null;
-        foreach($entries as $entry){
-            //Get owner of the entry
-            $entry_owner = $this->getDoctrine()
-                ->getRepository(User::class)
-                ->findOneBy(['id' => $entry->getUserId()]);
-            if($entry_owner->getName() == $username ){
-                $user_entries[] = $entry;
-            }
-        }
-
-        $user->entries = $user_entries;
-        $user->days_trained = 0;
-        $user->entire_time = 0;
-        $user->entire_distance = 0;
-
         $form = $this->createFormBuilder()
             ->setMethod('GET')
             ->add('Time', TimeType::class)
@@ -65,10 +38,9 @@ class Profile extends Controller {
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-
             $distance = $form["Distance"]->getData();
             $date = $form["Date"]->getData();
-            $time = $form["Time"]->getData();
+            $time = $form['Time']->getData();
 
             $entry = new Entry();
             $entry->setDate($date);
@@ -95,10 +67,62 @@ class Profile extends Controller {
                 ));
             }
 
-            $entry->setAvgSpeed(0);
+            $hours = (float)$form["Time"]->getData()->format("g") + ((float)$form["Time"]->getData()->format("i")) / 60;
+            $entry->setTime($hours);
+
+            $avg_speed = round($distance / $hours, 2);
+
+            if($avg_speed > 40){
+                return $this->render('user.twig', array(
+                    'user' => $user,
+                    'form' => $form->createView(),
+                    'errors' => ["No one can run that fast - shame on you!"]
+                ));
+            }
+            $entry->setAvgSpeed($avg_speed);
             $manager->persist($entry);
             $manager->flush();
         }
+
+
+
+        //Ooops, user does not exists :/
+        if (!$user) {
+            return $this->render('not_found.twig', array(
+                'message' => 'User ' . $username . ' not found'
+            ));
+        }
+
+        //Get all user entries
+        $entries = $this->getDoctrine()
+            ->getRepository(Entry::class)
+            ->findBy(['user_id' => $user->getId()]);
+
+        $entire_disance = 0;
+        $user_entries = null;
+        foreach($entries as $entry){
+            //Get owner of the entry
+            $entry_owner = $this->getDoctrine()
+                ->getRepository(User::class)
+                ->findOneBy(['id' => $entry->getUserId()]);
+            if($entry_owner->getName() == $username ){
+                $user_entries[] = $entry;
+                $entire_disance += $entry->getDistance();
+            }
+        }
+
+        uasort($user_entries, function ( $a, $b ) {
+            return $a->getDate()->getTimestamp() - $b->getDate()->getTimestamp();
+        });
+
+        $start_date = $user_entries[0]->getDate();
+        $end_date = new DateTime();
+        $days_between = floor(abs($start_date->getTimestamp() - $end_date->getTimestamp()) / 86400);
+
+        $user->entries = $user_entries;
+        $user->days_trained = count($user_entries);
+        $user->entire_time = $days_between;
+        $user->entire_distance = $entire_disance;
 
         return $this->render('user.twig', array(
             'user' => $user,

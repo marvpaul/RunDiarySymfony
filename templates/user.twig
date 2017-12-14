@@ -29,7 +29,7 @@
                             <tr>
                                 <td>{{ entry.date |date('Y-m-d')}}</td>
                                 <td>{{ entry.distance }}</td>
-                                <td>{{ entry.time |date('i')}}</td>
+                                <td>{{ entry.time}}</td>
                                 <td>{{ entry.getAvgSpeed() }}</td>
                                 {% if can_edit %}<td><a href="/public/delete/{{ entry.id}}/{{ user.id }}" class="delete-button btn btn-block btn-info">Delete</a></td>{% endif %}
                             </tr>
@@ -47,7 +47,6 @@
                 {{ error }}<br>
             {% endfor %}
         {% endif %}
-        You're the owner of this profile!!!
         {% form_theme form 'bootstrap_3_layout.html.twig' %}
         {# templates/default/new.html.twig #}
         {{ form_start(form) }}
