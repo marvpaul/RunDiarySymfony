@@ -145,28 +145,27 @@ class User implements UserInterface, \Serializable
         // TODO: Implement eraseCredentials() method.
     }
 
-    /**
-     * String representation of object
-     * @link http://php.net/manual/en/serializable.serialize.php
-     * @return string the string representation of the object or null
-     * @since 5.1.0
-     */
+    /** @see \Serializable::serialize() */
     public function serialize()
     {
-        // TODO: Implement serialize() method.
+        return serialize(array(
+            $this->id,
+            $this->name,
+            $this->pass,
+            // see section on salt below
+            // $this->salt,
+        ));
     }
 
-    /**
-     * Constructs the object
-     * @link http://php.net/manual/en/serializable.unserialize.php
-     * @param string $serialized <p>
-     * The string representation of the object.
-     * </p>
-     * @return void
-     * @since 5.1.0
-     */
+    /** @see \Serializable::unserialize() */
     public function unserialize($serialized)
     {
-        // TODO: Implement unserialize() method.
+        list (
+            $this->id,
+            $this->name,
+            $this->pass,
+            // see section on salt below
+            // $this->salt
+            ) = unserialize($serialized);
     }
 }
