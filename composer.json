@@ -21,7 +21,7 @@
 
      },
      "require-dev": {
-         "symfony/dotenv": "^4.0",
+         "symfony/dotenv": "^4.0"
      },
     "scripts": {
         "auto-scripts": {
