@@ -82,6 +82,7 @@ class Profile extends Controller {
                     'errors' => ["No one can run that fast - shame on you!"]
                 ));
             }
+            $entry->setTime(round($time, 2)); 
             $entry->setAvgSpeed($avg_speed);
             $manager->persist($entry);
             $manager->flush();
