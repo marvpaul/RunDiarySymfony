@@ -60,7 +60,8 @@ class Profile extends Controller {
                  */
                 $errorsString = (string) $errors;
 
-                $user->entries = null;
+                $user = $this->getEntries($user, $username);
+
                 return $this->render('user.twig', array(
                     'user' => $user,
                     'form' => $form->createView(),
@@ -74,7 +75,7 @@ class Profile extends Controller {
             $avg_speed = round($distance / $hours, 2);
 
             if($avg_speed > 40){
-                $user->entries = null;
+                $user = $this->getEntries($user, $username);
                 return $this->render('user.twig', array(
                     'user' => $user,
                     'form' => $form->createView(),
@@ -95,6 +96,19 @@ class Profile extends Controller {
             ));
         }
 
+        $user = $this->getEntries($user, $username);
+
+        return $this->render('user.twig', array(
+            'user' => $user,
+            'form' => $form->createView(),
+            'errors' => []
+        ));
+
+
+
+    }
+
+    private function getEntries($user, $username){
         //Get all user entries
         $entries = $this->getDoctrine()
             ->getRepository(Entry::class)
@@ -129,14 +143,6 @@ class Profile extends Controller {
         $user->days_trained = count($user_entries);
         $user->entire_time = $days_between;
         $user->entire_distance = $entire_disance;
-
-        return $this->render('user.twig', array(
-            'user' => $user,
-            'form' => $form->createView(),
-            'errors' => []
-        ));
-
-
-
+        return $user;
     }
 }
