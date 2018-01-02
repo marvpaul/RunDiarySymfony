@@ -60,6 +60,7 @@ class Profile extends Controller {
                  */
                 $errorsString = (string) $errors;
 
+                $user->entries = null;
                 return $this->render('user.twig', array(
                     'user' => $user,
                     'form' => $form->createView(),
@@ -73,6 +74,7 @@ class Profile extends Controller {
             $avg_speed = round($distance / $hours, 2);
 
             if($avg_speed > 40){
+                $user->entries = null;
                 return $this->render('user.twig', array(
                     'user' => $user,
                     'form' => $form->createView(),
