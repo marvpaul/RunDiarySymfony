@@ -23,10 +23,12 @@ class Profile extends Controller {
      */
     public function profile(Request $request, ObjectManager $manager, UserInterface $loggedin_user = null, $username) {
 
+        //Get the current user object
         $user = $this->getDoctrine()
             ->getRepository(User::class)
             ->findOneBy(['name' => $username]);
 
+        //Create a formular
         $form = $this->createFormBuilder()
             ->setMethod('GET')
             ->add('Time', TimeType::class)
@@ -37,6 +39,7 @@ class Profile extends Controller {
 
         $form->handleRequest($request);
 
+        //In case form was submitted, validate the values and save to DB in case the form is valid
         if ($form->isSubmitted()) {
             $distance = $form["Distance"]->getData();
             $date = $form["Date"]->getData();
@@ -53,15 +56,12 @@ class Profile extends Controller {
             $errors = $validator->validate($entry);
 
             if (count($errors) > 0) {
-                /*
-                 * Uses a __toString method on the $errors variable which is a
-                 * ConstraintViolationList object. This gives us a nice string
-                 * for debugging.
-                 */
+                //String with all error included in
                 $errorsString = (string) $errors;
 
                 $user = $this->getEntries($user, $username);
 
+                //Render user template with errors
                 return $this->render('user.twig', array(
                     'user' => $user,
                     'form' => $form->createView(),
@@ -69,11 +69,14 @@ class Profile extends Controller {
                 ));
             }
 
+            //Parse hours
             $hours = (float)$form["Time"]->getData()->format("g") + ((float)$form["Time"]->getData()->format("i")) / 60;
             $entry->setTime($hours);
 
+            //Set avg speed
             $avg_speed = round($distance / $hours, 2);
 
+            //Check if avg speed includes a valid value
             if($avg_speed > 40){
                 $user = $this->getEntries($user, $username);
                 return $this->render('user.twig', array(
@@ -81,8 +84,10 @@ class Profile extends Controller {
                     'form' => $form->createView(),
                     'errors' => ["No one can run that fast - shame on you!"]
                 ));
+            } else{
+                $entry->setAvgSpeed($avg_speed);
             }
-            $entry->setAvgSpeed($avg_speed);
+            //Push the new entry to db
             $manager->persist($entry);
             $manager->flush();
         }

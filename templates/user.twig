@@ -3,20 +3,29 @@
 {% block content %}
 
     {% set can_edit = is_granted('edit', user) %}
+
     {% if not is_granted("ROLE_USER") %}
         Hi there --> <a href="/public/index.php/login"> login</a>
     {% endif %}
+
     <div class="card text-white bg-primary">
         <div class="card-body" id="overview">
             <div class="alert alert-dismissible alert-success col-6" style="text-align: center; margin: auto; ">
+
+
                 Name -> {{ user.name }}<br>
+
+                <!--Summarized information -->
                 {%  if user.entries|length > 0%}
                         Days_trained -> {{ user.days_trained }}<br>
                     {% if is_granted("ROLE_USER") %}
                         Time from first entry to today -> {{ user.entire_time }}<br>
                     {% endif %}
                         Entire distance -> {{ user.entire_distance }}<br>
+
                     <h2>All entries</h2>
+
+                    <!-- Table with entries-->
                     <table class="table-info table table-striped">
                         <tr>
                             <td>Date</td>
@@ -39,20 +48,24 @@
                             </tr>
                         {% endfor %}
                     </table>
+
                 {% else %}
                     No entries so far
                 {% endif %}
             </div>
         </div>
     </div>
+
     {% if can_edit %}
+        <!-- Error log -->
         {% if errors|length > 0 %}
             {% for error in errors %}
                 {{ error }}<br>
             {% endfor %}
         {% endif %}
+
+        <!--Form for new entry -->
         {% form_theme form 'bootstrap_3_layout.html.twig' %}
-        {# templates/default/new.html.twig #}
         {{ form_start(form) }}
         {{ form_widget(form) }}
         {{ form_end(form) }}

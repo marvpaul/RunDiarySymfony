@@ -16,6 +16,8 @@ class Delete extends Controller {
      * @return Response
      */
     public function delete($entryid, $userid, ObjectManager $manager, UserInterface $loggedin_user = null) {
+
+        //The user which wanna to delete an entry is logged in as same user
         if($loggedin_user->getId() == $userid){
             $entry = $manager
                 ->getRepository(Entry::class)

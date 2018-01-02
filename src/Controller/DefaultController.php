@@ -22,9 +22,12 @@ class DefaultController extends Controller {
      * @return Response
      */
     public function index(Request $request) {
+        //Get all users
         $users = $this->getDoctrine()
             ->getRepository(User::class)
             ->findAll();
+
+        //Get all entries
         $entries = $this->getDoctrine()
             ->getRepository(Entry::class)
             ->findAll();
@@ -34,6 +37,8 @@ class DefaultController extends Controller {
             $user->days_trained = 0;
             $user->entire_distance = 0;
         }
+
+        //Go through each entry and create statistics
         foreach($entries as $entry){
             //Get owner of the entry
             $entry_owner = $this->getDoctrine()
@@ -46,10 +51,7 @@ class DefaultController extends Controller {
                     $user->days_trained += 1;
                 }
             }
-
         }
-
-
 
         return $this->render('overview.twig', array(
             'users' => $users
