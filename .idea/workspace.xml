@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="1c0cc639-f6f4-4bc4-926b-1c330037b6f2" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/Profile.php" afterPath="$PROJECT_DIR$/src/Controller/Profile.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/user.twig" afterPath="$PROJECT_DIR$/templates/user.twig" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -70,8 +69,8 @@
       <file leaf-file-name="user.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/user.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="489">
-              <caret line="34" column="61" lean-forward="false" selection-start-line="34" selection-start-column="61" selection-end-line="34" selection-end-column="61" />
+            <state relative-caret-position="354">
+              <caret line="25" column="54" lean-forward="false" selection-start-line="25" selection-start-column="54" selection-end-line="25" selection-end-column="54" />
               <folding />
             </state>
           </provider>
@@ -396,12 +395,12 @@
       <option name="presentableId" value="Default" />
       <updated>1513203873449</updated>
       <workItem from="1513203876384" duration="31675000" />
-      <workItem from="1514916941042" duration="1030000" />
+      <workItem from="1514916941042" duration="1111000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32705000" />
+    <option name="totallyTimeSpent" value="32786000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -809,8 +808,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/user.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="489">
-          <caret line="34" column="61" lean-forward="false" selection-start-line="34" selection-start-column="61" selection-end-line="34" selection-end-column="61" />
+        <state relative-caret-position="354">
+          <caret line="25" column="54" lean-forward="false" selection-start-line="25" selection-start-column="54" selection-end-line="25" selection-end-column="54" />
           <folding />
         </state>
       </provider>

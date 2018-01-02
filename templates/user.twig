@@ -20,10 +20,10 @@
                     <table class="table-info table table-striped">
                         <tr>
                             <td>Date</td>
-                            <td>Distance</td>
+                            <td>Distance in km</td>
                             {% if is_granted("ROLE_USER") %}
-                                <td>Time</td>
-                                <td>Avg. speed</td>
+                                <td>Time in h</td>
+                                <td>Avg. speed in km/h</td>
                             {% endif %}
                             {% if can_edit %}<td>Delete</td>{% endif %}
                         </tr>
