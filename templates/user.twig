@@ -11,26 +11,30 @@
             <div class="alert alert-dismissible alert-success col-6" style="text-align: center; margin: auto; ">
                 Name -> {{ user.name }}<br>
                 {%  if user.entries|length > 0%}
-                    {% if is_granted("ROLE_USER") %}
                         Days_trained -> {{ user.days_trained }}<br>
+                    {% if is_granted("ROLE_USER") %}
                         Time from first entry to today -> {{ user.entire_time }}<br>
-                        Entire distance -> {{ user.entire_distance }}<br>
                     {% endif %}
+                        Entire distance -> {{ user.entire_distance }}<br>
                     <h2>All entries</h2>
                     <table class="table-info table table-striped">
                         <tr>
                             <td>Date</td>
                             <td>Distance</td>
-                            <td>Time</td>
-                            <td>Avg. speed</td>
+                            {% if is_granted("ROLE_USER") %}
+                                <td>Time</td>
+                                <td>Avg. speed</td>
+                            {% endif %}
                             {% if can_edit %}<td>Delete</td>{% endif %}
                         </tr>
                         {% for entry in user.entries %}
                             <tr>
                                 <td>{{ entry.date |date('Y-m-d')}}</td>
                                 <td>{{ entry.distance }}</td>
-                                <td>{{ entry.time}}</td>
-                                <td>{{ entry.getAvgSpeed() }}</td>
+                                {% if is_granted("ROLE_USER") %}
+                                    <td>{{ entry.time}}</td>
+                                    <td>{{ entry.getAvgSpeed() }}</td>
+                                {% endif %}
                                 {% if can_edit %}<td><a href="/public/index.php/delete/{{ entry.id}}/{{ user.id }}" class="delete-button btn btn-block btn-info">Delete</a></td>{% endif %}
                             </tr>
                         {% endfor %}
