@@ -32,7 +32,7 @@
                                 <td>{{ entry.date |date('Y-m-d')}}</td>
                                 <td>{{ entry.distance }}</td>
                                 {% if is_granted("ROLE_USER") %}
-                                    <td>{{ entry.time}}</td>
+                                    <td>{{ entry.time|round(2, 'floor') }}</td>
                                     <td>{{ entry.getAvgSpeed() }}</td>
                                 {% endif %}
                                 {% if can_edit %}<td><a href="/public/index.php/delete/{{ entry.id}}/{{ user.id }}" class="delete-button btn btn-block btn-info">Delete</a></td>{% endif %}
