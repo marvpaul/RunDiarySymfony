@@ -65,7 +65,35 @@ class srcDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             return $this->mergeDefaults(array_replace($matches, array('_route' => 'app_profile_profile')), array (  '_controller' => 'App\\Controller\\Profile::profile',));
         }
 
-        if (0 === strpos($pathinfo, '/_')) {
+        // go
+        if ('/go' === $trimmedPathinfo) {
+            $ret = array (  '_controller' => 'App\\Controller\\RedirectController::search',  '_route' => 'go',);
+            if (substr($pathinfo, -1) !== '/') {
+                return array_replace($ret, $this->redirect($pathinfo.'/', 'go'));
+            }
+
+            return $ret;
+        }
+
+        if (0 === strpos($pathinfo, '/search')) {
+            // app_search_search
+            if (preg_match('#^/search/(?P<query>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'app_search_search')), array (  '_controller' => 'App\\Controller\\Search::search',));
+            }
+
+            // app_search_searchforautocompl
+            if ('/search' === $trimmedPathinfo) {
+                $ret = array (  '_controller' => 'App\\Controller\\Search::searchForAutocompl',  '_route' => 'app_search_searchforautocompl',);
+                if (substr($pathinfo, -1) !== '/') {
+                    return array_replace($ret, $this->redirect($pathinfo.'/', 'app_search_searchforautocompl'));
+                }
+
+                return $ret;
+            }
+
+        }
+
+        elseif (0 === strpos($pathinfo, '/_')) {
             // _twig_error_test
             if (0 === strpos($pathinfo, '/_error') && preg_match('#^/_error/(?P<code>\\d+)(?:\\.(?P<_format>[^/]++))?$#s', $pathinfo, $matches)) {
                 return $this->mergeDefaults(array_replace($matches, array('_route' => '_twig_error_test')), array (  '_controller' => 'twig.controller.preview_error:previewErrorPageAction',  '_format' => 'html',));

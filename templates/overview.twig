@@ -1,6 +1,9 @@
+
 {% extends "base.html.twig" %}
 
 {% block content %}
+
+
 
     {% if not is_granted("ROLE_USER") %}
         Hi there --> <a href="/public/index.php/login"> login</a>
@@ -26,5 +29,20 @@
             </div>
         </div>
     </div>
+
+    {% form_theme form 'bootstrap_3_layout.html.twig' %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+
+    <script>
+        $(function(){
+            $("#form_user").autocomplete({
+                source: "search/",
+                minLength: 3
+            });
+        } );
+    </script>
 
 {% endblock %}

@@ -27,6 +27,21 @@ class MyUserFixture extends Fixture {
         $user2->setPass($this->encoder->encodePassword($user2, 'sth'));
         $manager->persist($user2);
 
+        $user3 = new User();
+        $user3->setName('martin');
+        $user3->setPass($this->encoder->encodePassword($user3, 'sth'));
+        $manager->persist($user3);
+
+        $user4 = new User();
+        $user4->setName('merry');
+        $user4->setPass($this->encoder->encodePassword($user4, 'sth'));
+        $manager->persist($user4);
+
+        $user5 = new User();
+        $user5->setName('Mark');
+        $user5->setPass($this->encoder->encodePassword($user5, 'sth'));
+        $manager->persist($user5);
+
         // actually executes the queries (i.e. the INSERT query)
         $manager->flush();
 

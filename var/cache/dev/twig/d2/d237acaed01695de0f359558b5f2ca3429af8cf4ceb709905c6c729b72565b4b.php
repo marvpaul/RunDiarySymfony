@@ -21,29 +21,29 @@ class __TwigTemplate_461e8dd4a518d47038327f436b5e305692003b4cf77f1f709c13f7fae21
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_5ada3173b476fa02a012fcd5daa3582ad5ce307e2ba13cb2d98ab739a230184c = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
-        $__internal_5ada3173b476fa02a012fcd5daa3582ad5ce307e2ba13cb2d98ab739a230184c->enter($__internal_5ada3173b476fa02a012fcd5daa3582ad5ce307e2ba13cb2d98ab739a230184c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "login.twig"));
+        $__internal_2636311a66b0fae654db564bc303fb523913433aba2ff5b7ddb6f2e55709d0f0 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
+        $__internal_2636311a66b0fae654db564bc303fb523913433aba2ff5b7ddb6f2e55709d0f0->enter($__internal_2636311a66b0fae654db564bc303fb523913433aba2ff5b7ddb6f2e55709d0f0_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "login.twig"));
 
-        $__internal_1b627607c5a5f1da56d5d91cd2364fc730fa861d1eb5bf22adcbbe2c10cf6fdc = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_1b627607c5a5f1da56d5d91cd2364fc730fa861d1eb5bf22adcbbe2c10cf6fdc->enter($__internal_1b627607c5a5f1da56d5d91cd2364fc730fa861d1eb5bf22adcbbe2c10cf6fdc_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "login.twig"));
+        $__internal_e94c073c080a4ecbfc9ac0889497ef68fcc9cd63beee57c6761d843594f748be = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_e94c073c080a4ecbfc9ac0889497ef68fcc9cd63beee57c6761d843594f748be->enter($__internal_e94c073c080a4ecbfc9ac0889497ef68fcc9cd63beee57c6761d843594f748be_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "login.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_5ada3173b476fa02a012fcd5daa3582ad5ce307e2ba13cb2d98ab739a230184c->leave($__internal_5ada3173b476fa02a012fcd5daa3582ad5ce307e2ba13cb2d98ab739a230184c_prof);
+        $__internal_2636311a66b0fae654db564bc303fb523913433aba2ff5b7ddb6f2e55709d0f0->leave($__internal_2636311a66b0fae654db564bc303fb523913433aba2ff5b7ddb6f2e55709d0f0_prof);
 
         
-        $__internal_1b627607c5a5f1da56d5d91cd2364fc730fa861d1eb5bf22adcbbe2c10cf6fdc->leave($__internal_1b627607c5a5f1da56d5d91cd2364fc730fa861d1eb5bf22adcbbe2c10cf6fdc_prof);
+        $__internal_e94c073c080a4ecbfc9ac0889497ef68fcc9cd63beee57c6761d843594f748be->leave($__internal_e94c073c080a4ecbfc9ac0889497ef68fcc9cd63beee57c6761d843594f748be_prof);
 
     }
 
     // line 3
     public function block_content($context, array $blocks = array())
     {
-        $__internal_6d92855a66536fa065d6eff9fb1090982edb08b2c9186b026bd1a1224516933c = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
-        $__internal_6d92855a66536fa065d6eff9fb1090982edb08b2c9186b026bd1a1224516933c->enter($__internal_6d92855a66536fa065d6eff9fb1090982edb08b2c9186b026bd1a1224516933c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "content"));
+        $__internal_7e8e415b5ffdd50c65442d759b9a117a59e5fbc84eb82114b5e232f20f1b81fc = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
+        $__internal_7e8e415b5ffdd50c65442d759b9a117a59e5fbc84eb82114b5e232f20f1b81fc->enter($__internal_7e8e415b5ffdd50c65442d759b9a117a59e5fbc84eb82114b5e232f20f1b81fc_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "content"));
 
-        $__internal_1e73e2ed6cfc54c6e876d5e21b36145c0fd8df1c51c88c942722743c9e17fea2 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_1e73e2ed6cfc54c6e876d5e21b36145c0fd8df1c51c88c942722743c9e17fea2->enter($__internal_1e73e2ed6cfc54c6e876d5e21b36145c0fd8df1c51c88c942722743c9e17fea2_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "content"));
+        $__internal_ad04062af33c417d3c83d380570a421648d5ed716516001b8f440b0defa9a0f2 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_ad04062af33c417d3c83d380570a421648d5ed716516001b8f440b0defa9a0f2->enter($__internal_ad04062af33c417d3c83d380570a421648d5ed716516001b8f440b0defa9a0f2_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "content"));
 
         // line 4
         echo "
@@ -64,7 +64,7 @@ class __TwigTemplate_461e8dd4a518d47038327f436b5e305692003b4cf77f1f709c13f7fae21
             echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->getSourceContext(), twig_get_attribute($this->env, $this->getSourceContext(), (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new Twig_Error_Runtime('Variable "app" does not exist.', 9, $this->getSourceContext()); })()), "user", array()), "name", array()), "html", null, true);
             echo ",
         you're logged in. Wanna to logout?
-        --> <a href=\"logout\">Logout</a>
+        --> <a href=\"/public/index.php/logout\">Logout</a>
     ";
         }
         // line 13
@@ -90,7 +90,10 @@ class __TwigTemplate_461e8dd4a518d47038327f436b5e305692003b4cf77f1f709c13f7fae21
             ";
             // line 28
             echo "
-            <button type=\"submit\">login</button>
+            <button action=\"";
+            // line 29
+            echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\RoutingExtension')->getPath("login");
+            echo "\" method=\"post\">login</button>
         </form>
     ";
         }
@@ -101,10 +104,10 @@ class __TwigTemplate_461e8dd4a518d47038327f436b5e305692003b4cf77f1f709c13f7fae21
 
 ";
         
-        $__internal_1e73e2ed6cfc54c6e876d5e21b36145c0fd8df1c51c88c942722743c9e17fea2->leave($__internal_1e73e2ed6cfc54c6e876d5e21b36145c0fd8df1c51c88c942722743c9e17fea2_prof);
+        $__internal_ad04062af33c417d3c83d380570a421648d5ed716516001b8f440b0defa9a0f2->leave($__internal_ad04062af33c417d3c83d380570a421648d5ed716516001b8f440b0defa9a0f2_prof);
 
         
-        $__internal_6d92855a66536fa065d6eff9fb1090982edb08b2c9186b026bd1a1224516933c->leave($__internal_6d92855a66536fa065d6eff9fb1090982edb08b2c9186b026bd1a1224516933c_prof);
+        $__internal_7e8e415b5ffdd50c65442d759b9a117a59e5fbc84eb82114b5e232f20f1b81fc->leave($__internal_7e8e415b5ffdd50c65442d759b9a117a59e5fbc84eb82114b5e232f20f1b81fc_prof);
 
     }
 
@@ -120,7 +123,7 @@ class __TwigTemplate_461e8dd4a518d47038327f436b5e305692003b4cf77f1f709c13f7fae21
 
     public function getDebugInfo()
     {
-        return array (  98 => 32,  92 => 28,  84 => 18,  79 => 16,  76 => 15,  74 => 14,  71 => 13,  63 => 9,  60 => 8,  54 => 6,  52 => 5,  49 => 4,  40 => 3,  11 => 1,);
+        return array (  101 => 32,  95 => 29,  92 => 28,  84 => 18,  79 => 16,  76 => 15,  74 => 14,  71 => 13,  63 => 9,  60 => 8,  54 => 6,  52 => 5,  49 => 4,  40 => 3,  11 => 1,);
     }
 
     public function getSourceContext()
@@ -135,7 +138,7 @@ class __TwigTemplate_461e8dd4a518d47038327f436b5e305692003b4cf77f1f709c13f7fae21
     {% if is_granted(\"ROLE_USER\") %}
         Hi {{ app.user.name }},
         you're logged in. Wanna to logout?
-        --> <a href=\"logout\">Logout</a>
+        --> <a href=\"/public/index.php/logout\">Logout</a>
     {% endif %}
 
     {% if  not is_granted(\"ROLE_USER\") %}
@@ -153,7 +156,7 @@ class __TwigTemplate_461e8dd4a518d47038327f436b5e305692003b4cf77f1f709c13f7fae21
                 <input type=\"hidden\" name=\"_target_path\" value=\"/account\" />
             #}
 
-            <button type=\"submit\">login</button>
+            <button action=\"{{ path('login') }}\" method=\"post\">login</button>
         </form>
     {% endif %}
 

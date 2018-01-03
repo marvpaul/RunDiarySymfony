@@ -426,9 +426,18 @@
     <service id="App\Controller\Profile" class="App\Controller\Profile" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
     </service>
+    <service id="App\Controller\RedirectController" class="App\Controller\RedirectController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+    </service>
+    <service id="App\Controller\Search" class="App\Controller\Search" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+    </service>
     <service id="App\DataFixtures\MyUserFixture" class="App\DataFixtures\MyUserFixture" public="false" autowire="true" autoconfigure="true">
       <tag name="doctrine.fixture.orm"/>
       <argument type="service" id="security.user_password_encoder.generic"/>
+    </service>
+    <service id="App\Form\Type\UserSearchType" class="App\Form\Type\UserSearchType" public="false" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
     </service>
     <service id="App\Kernel" class="App\Kernel" public="false" autowire="true" autoconfigure="true"/>
     <service id="App\Repository\EntryRepository" class="App\Repository\EntryRepository" public="false" autowire="true" autoconfigure="true">
@@ -462,7 +471,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
       <tag name="controller.argument_value_resolver" priority="-50"/>
-      <argument type="service" id="service_locator.KSAUyYP"/>
+      <argument type="service" id="service_locator.woEYnKV"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false">
       <tag name="controller.argument_value_resolver" priority="-100"/>
@@ -724,7 +733,7 @@
       <tag name="monolog.logger" channel="cache"/>
       <argument></argument>
       <argument>0</argument>
-      <argument>UK3hWs1B99wykBdti8EUAK</argument>
+      <argument>AFVh4tAVa41FqPX1BH6090</argument>
       <argument>/Users/marvinkruger/uebung6/var/cache/dev/pools</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -734,7 +743,7 @@
       <tag name="monolog.logger" channel="cache"/>
       <argument></argument>
       <argument>0</argument>
-      <argument>UK3hWs1B99wykBdti8EUAK</argument>
+      <argument>AFVh4tAVa41FqPX1BH6090</argument>
       <call method="setLogger">
         <argument type="service" id="logger" on-invalid="ignore"/>
       </call>
@@ -873,7 +882,7 @@
       <argument type="service" id="form.resolved_type_factory"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension" public="false">
-      <argument type="service" id="service_locator.nA6cUNd"/>
+      <argument type="service" id="service_locator.ctdHEuP"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.http_foundation"/>
@@ -1861,14 +1870,6 @@
       </call>
       <call method="addListener">
         <argument>kernel.request</argument>
-        <argument type="collection">
-          <argument type="service" id="debug.debug_handlers_listener"/>
-          <argument>configure</argument>
-        </argument>
-        <argument>2048</argument>
-      </call>
-      <call method="addListener">
-        <argument>console.command</argument>
         <argument type="collection">
           <argument type="service" id="debug.debug_handlers_listener"/>
           <argument>configure</argument>
@@ -3641,12 +3642,12 @@
     </service>
     <service id="security.authentication.listener.anonymous.main" class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
       <argument type="service" id="security.token_storage"/>
-      <argument>5a32c792ccdca6.06172783</argument>
+      <argument>5a4d1acf2ac331.09104577</argument>
       <argument type="service" id="logger" on-invalid="null"/>
       <argument type="service" id="security.authentication.manager"/>
     </service>
     <service id="security.authentication.provider.anonymous.main" class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-      <argument>5a32c792ccdca6.06172783</argument>
+      <argument>5a4d1acf2ac331.09104577</argument>
     </service>
     <service id="security.exception_listener.main" class="Symfony\Component\Security\Http\Firewall\ExceptionListener" public="false">
       <argument type="service" id="security.token_storage"/>
@@ -3696,8 +3697,14 @@
     <service id="abstract.instanceof.App\Controller\Login" class="App\Controller\Login" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.App\Controller\Profile" class="App\Controller\Profile" public="false" autowire="true" abstract="true"/>
     <service id="abstract.instanceof.App\Controller\Profile" class="App\Controller\Profile" public="false" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.App\Controller\RedirectController" class="App\Controller\RedirectController" public="false" autowire="true" abstract="true"/>
+    <service id="abstract.instanceof.App\Controller\RedirectController" class="App\Controller\RedirectController" public="false" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.App\Controller\Search" class="App\Controller\Search" public="false" autowire="true" abstract="true"/>
+    <service id="abstract.instanceof.App\Controller\Search" class="App\Controller\Search" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\MyUserFixture" class="App\DataFixtures\MyUserFixture" public="false" autowire="true" abstract="true"/>
     <service id="abstract.instanceof.App\DataFixtures\MyUserFixture" class="App\DataFixtures\MyUserFixture" public="false" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id="instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\Type\UserSearchType" class="App\Form\Type\UserSearchType" public="false" autowire="true" abstract="true"/>
+    <service id="abstract.instanceof.App\Form\Type\UserSearchType" class="App\Form\Type\UserSearchType" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\EntryRepository" class="App\Repository\EntryRepository" public="false" autowire="true" abstract="true"/>
     <service id="abstract.instanceof.App\Repository\EntryRepository" class="App\Repository\EntryRepository" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UserRepository" class="App\Repository\UserRepository" public="false" autowire="true" abstract="true"/>
@@ -3828,15 +3835,39 @@
         <argument key="manager" type="service" id="doctrine.orm.default_entity_manager" on-invalid="ignore"/>
       </argument>
     </service>
-    <service id="service_locator.KSAUyYP" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id="service_locator.ZLmDKDh" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="em" type="service" id="doctrine.orm.default_entity_manager" on-invalid="ignore"/>
+      </argument>
+    </service>
+    <service id="service_locator.mNmoHFb" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="em" type="service" id="doctrine.orm.default_entity_manager" on-invalid="ignore"/>
+      </argument>
+    </service>
+    <service id="service_locator.krvIqfq" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="em" type="service" id="doctrine.orm.default_entity_manager" on-invalid="ignore"/>
+      </argument>
+    </service>
+    <service id="service_locator.woEYnKV" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\Delete:delete" type="service" id="service_locator.gdCKe.1"/>
         <argument key="App\Controller\Login:login" type="service" id="service_locator.RlxuNrZ"/>
         <argument key="App\Controller\Profile:profile" type="service" id="service_locator.w1Tz7OE"/>
+        <argument key="App\Controller\RedirectController:search" type="service" id="service_locator.ZLmDKDh"/>
+        <argument key="App\Controller\Search:search" type="service" id="service_locator.mNmoHFb"/>
+        <argument key="App\Controller\Search:searchForAutocompl" type="service" id="service_locator.krvIqfq"/>
         <argument key="App\Controller\Delete::delete" type="service" id="service_locator.gdCKe.1"/>
         <argument key="App\Controller\Login::login" type="service" id="service_locator.RlxuNrZ"/>
         <argument key="App\Controller\Profile::profile" type="service" id="service_locator.w1Tz7OE"/>
+        <argument key="App\Controller\RedirectController::search" type="service" id="service_locator.ZLmDKDh"/>
+        <argument key="App\Controller\Search::search" type="service" id="service_locator.mNmoHFb"/>
+        <argument key="App\Controller\Search::searchForAutocompl" type="service" id="service_locator.krvIqfq"/>
       </argument>
     </service>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
@@ -3979,9 +4010,10 @@
         <argument key="inline" type="service" id="fragment.renderer.inline"/>
       </argument>
     </service>
-    <service id="service_locator.nA6cUNd" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id="service_locator.ctdHEuP" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="App\Form\Type\UserSearchType" type="service" id="App\Form\Type\UserSearchType"/>
         <argument key="Symfony\Bridge\Doctrine\Form\Type\EntityType" type="service" id="form.type.entity"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\ChoiceType" type="service" id="form.type.choice"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="service" id="form.type.form"/>
@@ -4080,7 +4112,7 @@
     <service id="cache.system.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false">
       <argument>UaulNAS308</argument>
       <argument>0</argument>
-      <argument>UK3hWs1B99wykBdti8EUAK</argument>
+      <argument>AFVh4tAVa41FqPX1BH6090</argument>
       <argument>/Users/marvinkruger/uebung6/var/cache/dev/pools</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -4088,7 +4120,7 @@
     <service id="cache.validator.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false">
       <argument>LK9UWvS0nm</argument>
       <argument>0</argument>
-      <argument>UK3hWs1B99wykBdti8EUAK</argument>
+      <argument>AFVh4tAVa41FqPX1BH6090</argument>
       <argument>/Users/marvinkruger/uebung6/var/cache/dev/pools</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -4096,7 +4128,7 @@
     <service id="cache.serializer.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false">
       <argument>i6ZYjF-IRj</argument>
       <argument>0</argument>
-      <argument>UK3hWs1B99wykBdti8EUAK</argument>
+      <argument>AFVh4tAVa41FqPX1BH6090</argument>
       <argument>/Users/marvinkruger/uebung6/var/cache/dev/pools</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -4104,7 +4136,7 @@
     <service id="cache.annotations.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false">
       <argument>iHk3psv7N4</argument>
       <argument>0</argument>
-      <argument>UK3hWs1B99wykBdti8EUAK</argument>
+      <argument>AFVh4tAVa41FqPX1BH6090</argument>
       <argument>/Users/marvinkruger/uebung6/var/cache/dev/pools</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>

@@ -4,6 +4,8 @@ use App\Entity\Entry;
 use App\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use \Symfony\Component\Form\Extension\Core\Type\TimeType;
 use \Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Validator\Constraints\DateTime;
+use App\Form\Type\UserSearchType;
 
 class DefaultController extends Controller {
 
@@ -53,8 +56,19 @@ class DefaultController extends Controller {
             }
         }
 
+        //Create a formular
+        $form = $this->createFormBuilder()
+            ->setAction($this->generateUrl('go'))
+            ->setMethod('POST')
+            ->add('user', TextType::class)
+            ->add('Save', SubmitType::class, array('label' => 'Go!!!'))
+            ->getForm();
+
+        $form->handleRequest($request);
+
         return $this->render('overview.twig', array(
-            'users' => $users
+            'users' => $users,
+            'form' => $form->createView()
         ));
     }
 }
