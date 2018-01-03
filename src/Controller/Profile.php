@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use App\Entity\User;
@@ -119,35 +120,66 @@ class Profile extends Controller {
             ->getRepository(Entry::class)
             ->findBy(['user_id' => $user->getId()]);
 
-
         $entire_disance = 0;
-        $user_entries = [];
         $days_between = 0;
         foreach($entries as $entry){
-            //Get owner of the entry
-            $entry_owner = $this->getDoctrine()
-                ->getRepository(User::class)
-                ->findOneBy(['id' => $entry->getUserId()]);
-            if($entry_owner->getName() == $username ){
-                $user_entries[] = $entry;
-                $entire_disance += $entry->getDistance();
-            }
+            $entire_disance += $entry->getDistance();
         }
 
         if(count($entries) >= 2){
-            uasort($user_entries, function ( $a, $b ) {
+            uasort($entries, function ( $a, $b ) {
                 return $b->getDate()->getTimestamp() - $a->getDate()->getTimestamp();
             });
-            $start_date = $user_entries[0]->getDate();
+            $start_date = $entries[0]->getDate();
             $end_date = new DateTime();
             $days_between = floor(abs($start_date->getTimestamp() - $end_date->getTimestamp()) / 86400);
         }
 
 
-        $user->entries = $user_entries;
-        $user->days_trained = count($user_entries);
+        $user->entries = $entries;
+        $user->days_trained = count($entries);
         $user->entire_time = $days_between;
         $user->entire_distance = $entire_disance;
         return $user;
+    }
+
+    /**
+     * @Route("/profile/{username}/diary.{_format}", defaults={"_format"="html"})
+     * @return Response
+     */
+    public function showUser(Request $request, $username, UserInterface $loggedin_user = null) {
+        $format = $request->getRequestFormat();
+        if($loggedin_user != null){
+            //Get the current user object
+            $user = $this->getDoctrine()
+                ->getRepository(User::class)
+                ->findOneBy(['name' => $username]);
+            $user = $this->getEntries($user, $username);
+            if($format == "json"){
+                $response = new Response();
+                $response->setContent($this->render('diary.json.twig', array(
+                    'user' => $user
+                ))->getContent());
+                $response->headers->set('Content-Type', 'application/json');
+                return $response;
+            } elseif ($format == "csv"){
+                $fileContent = $this->render('diary.csv.twig', array(
+                    'user' => $user
+                ))->getContent(); // the generated file content
+                $response = new Response($fileContent);
+
+                $disposition = $response->headers->makeDisposition(
+                    ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+                    $user->getName().'.csv'
+                );
+
+                $response->headers->set('Content-Disposition', $disposition);
+                return $response;
+            } else{
+                return $this->redirect('/public/index.php');
+            }
+        } else{
+            return $this->redirect('/public/index.php/login');
+        }
     }
 }

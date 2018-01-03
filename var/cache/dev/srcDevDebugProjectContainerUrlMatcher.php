@@ -60,9 +60,17 @@ class srcDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             return array (  '_controller' => 'App\\Controller\\Login::after_login',  '_route' => 'after_login',);
         }
 
-        // app_profile_profile
-        if (0 === strpos($pathinfo, '/profile') && preg_match('#^/profile/(?P<username>[^/]++)$#s', $pathinfo, $matches)) {
-            return $this->mergeDefaults(array_replace($matches, array('_route' => 'app_profile_profile')), array (  '_controller' => 'App\\Controller\\Profile::profile',));
+        if (0 === strpos($pathinfo, '/profile')) {
+            // app_profile_profile
+            if (preg_match('#^/profile/(?P<username>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'app_profile_profile')), array (  '_controller' => 'App\\Controller\\Profile::profile',));
+            }
+
+            // app_profile_showuser
+            if (preg_match('#^/profile/(?P<username>[^/]++)/diary(?:\\.(?P<_format>[^/]++))?$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'app_profile_showuser')), array (  '_format' => 'html',  '_controller' => 'App\\Controller\\Profile::showUser',));
+            }
+
         }
 
         // go

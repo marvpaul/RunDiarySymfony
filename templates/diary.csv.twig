@@ -1,0 +1,4 @@
+date, distance, time, avg_speed
+{% for entry in user.entries %}
+{{ entry.date |date('Y-m-d')}},{{ entry.distance }},{{ entry.time|round(2, 'floor') }},{{ entry.getAvgSpeed() }}
+{% endfor %}

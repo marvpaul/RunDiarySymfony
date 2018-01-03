@@ -1,0 +1,17 @@
+{
+    "user" : "{{ user.name }}",
+    "Days_trained" : {{ user.days_trained }},
+    "Time from first entry to today" : {{ user.entire_time }},
+    "Entire distance" :{{ user.entire_distance }},
+    "entries" : [
+        {% for entry in user.entries %}
+        {
+            "date" : "{{ entry.date |date('Y-m-d')}}",
+            "distance" : {{ entry.distance }},
+            "time" : {{ entry.time|round(2, 'floor') }},
+            "avg_speed" : {{ entry.getAvgSpeed() }}
+        } {% if not loop.last %}, {% endif %}
+
+        {% endfor %}
+    ]
+}
