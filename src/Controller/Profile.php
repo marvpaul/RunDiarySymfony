@@ -16,13 +16,14 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use App\Entity\User;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class Profile extends Controller {
     /**
      * @Route("/profile/{username}")
      * @return Response
      */
-    public function profile(Request $request, ObjectManager $manager, UserInterface $loggedin_user = null, $username) {
+    public function profile(Request $request, ObjectManager $manager, UserInterface $loggedin_user = null, $username, TranslatorInterface $translator) {
 
         //Get the current user object
         $user = $this->getDoctrine()
@@ -32,19 +33,19 @@ class Profile extends Controller {
         //Create a formular
         $form = $this->createFormBuilder()
             ->setMethod('GET')
-            ->add('Time', TimeType::class)
-            ->add('Date', DateType::class)
-            ->add('Distance', IntegerType::class)
-            ->add('Save', SubmitType::class, array('label' => 'Create entry'))
+            ->add($translator->trans('Time'), TimeType::class)
+            ->add($translator->trans('Date'), DateType::class)
+            ->add($translator->trans('Distance'), IntegerType::class)
+            ->add($translator->trans('Save'), SubmitType::class, array('label' => 'Create entry'))
             ->getForm();
 
         $form->handleRequest($request);
 
         //In case form was submitted, validate the values and save to DB in case the form is valid
         if ($form->isSubmitted()) {
-            $distance = $form["Distance"]->getData();
-            $date = $form["Date"]->getData();
-            $time = $form['Time']->getData();
+            $distance = $form[$translator->trans('Distance')]->getData();
+            $date = $form[$translator->trans('Date')]->getData();
+            $time = $form[$translator->trans('Time')]->getData();
 
             $entry = new Entry();
             $entry->setDate($date);
@@ -71,7 +72,7 @@ class Profile extends Controller {
             }
 
             //Parse hours
-            $hours = (float)$form["Time"]->getData()->format("g") + ((float)$form["Time"]->getData()->format("i")) / 60;
+            $hours = (float)$form[$translator->trans('Time')]->getData()->format("g") + ((float)$form[$translator->trans('Time')]->getData()->format("i")) / 60;
             $entry->setTime($hours);
 
             //Set avg speed
@@ -83,7 +84,7 @@ class Profile extends Controller {
                 return $this->render('user.twig', array(
                     'user' => $user,
                     'form' => $form->createView(),
-                    'errors' => ["No one can run that fast - shame on you!"]
+                    'errors' => [$translator->trans('No one can run that fast! Shame on you!')]
                 ));
             } else{
                 $entry->setAvgSpeed($avg_speed);

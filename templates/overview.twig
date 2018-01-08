@@ -6,19 +6,18 @@
 
 
     {% if not is_granted("ROLE_USER") %}
-        Hi there --> <a href="/public/index.php/login"> login</a>
+        {% trans %}Hi there, {% endtrans %} <a href="/public/index.php/login"> {% trans %}Login{% endtrans %}</a>
     {% endif %}
     <div class="card text-white bg-primary">
         <div class="card-body" id="overview">
             <div class="alert alert-dismissible alert-success col-3" style="text-align: center; margin: auto; ">
                 <table>
                     <tr>
-                        <td>Username</td>
-                        <td>Day trained</td>
-                        <td>Entire distance</td>
+                        <td>{% trans %}Username{% endtrans %}</td>
+                        <td>{% trans %}Days trained{% endtrans %}</td>
+                        <td>{% trans %}Entire distance{% endtrans %}</td>
                     </tr>
                 {% for user in users %}
-
                     <tr>
                         <td><a href="/public/index.php/profile/{{ user.name }}">{{ user.name }}</a></td>
                         <td>{{ user.days_trained }}</td>
@@ -38,7 +37,7 @@
 
     <script>
         $(function(){
-            $("#form_user").autocomplete({
+            $("#name").autocomplete({
                 source: "search/",
                 minLength: 3
             });

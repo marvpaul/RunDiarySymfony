@@ -8,16 +8,16 @@
     {% if is_granted("ROLE_USER") %}
         Hi {{ app.user.name }},
         you're logged in. Wanna to logout?
-        --> <a href="/public/index.php/logout">Logout</a>
+        --> <a href="/public/index.php/logout">{% trans %}Logout{% endtrans %}</a>
     {% endif %}
 
     {% if  not is_granted("ROLE_USER") %}
-        Hey, please login to use some special features
+        {% trans %}Hey, please login to use some special features{% endtrans %}
         <form action="{{ path('login') }}" method="post">
-            <label for="username">Username:</label>
+            <label for="username">{% trans %}Username{% endtrans %}</label>
             <input type="text" id="username" name="_username" value="{{ last_username }}" />
 
-            <label for="password">Password:</label>
+            <label for="password">{% trans %}Password{% endtrans %}</label>
             <input type="password" id="password" name="_password" />
 
             {#
@@ -26,7 +26,7 @@
                 <input type="hidden" name="_target_path" value="/account" />
             #}
 
-            <button action="{{ path('login') }}" method="post">login</button>
+            <button action="{{ path('login') }}" method="post">{% trans %}Login{% endtrans %}</button>
         </form>
     {% endif %}
 

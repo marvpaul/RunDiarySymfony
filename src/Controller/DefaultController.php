@@ -15,6 +15,7 @@ use \Symfony\Component\Form\Extension\Core\Type\TimeType;
 use \Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Validator\Constraints\DateTime;
 use App\Form\Type\UserSearchType;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class DefaultController extends Controller {
 
@@ -24,7 +25,7 @@ class DefaultController extends Controller {
      * @Route("/")
      * @return Response
      */
-    public function index(Request $request) {
+    public function index(Request $request, TranslatorInterface $translator) {
         //Get all users
         $users = $this->getDoctrine()
             ->getRepository(User::class)
@@ -60,7 +61,7 @@ class DefaultController extends Controller {
         $form = $this->createFormBuilder()
             ->setAction($this->generateUrl('go'))
             ->setMethod('POST')
-            ->add('user', TextType::class)
+            ->add('name', TextType::class)
             ->add('Save', SubmitType::class, array('label' => 'Go!!!'))
             ->getForm();
 

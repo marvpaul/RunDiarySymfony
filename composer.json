@@ -17,7 +17,8 @@
          "symfony/yaml": "^4.0",
         "symfony/maker-bundle": "^1.0",
         "symfony/security-bundle": "^4.0",
-        "symfony/dotenv": "^4.0"
+        "symfony/dotenv": "^4.0",
+        "symfony/translation": "^4.0"
 
      },
      "require-dev": {

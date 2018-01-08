@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="symfony_is_great">
+                <source>Symfony is great</source>
+                <target>Ich mag Symfony</target>
+            </trans-unit>
+            <trans-unit id="go">
+                <source>Go!!!</source>
+                <target>los gehts!</target>
+            </trans-unit>
+            <trans-unit id="welcome">
+                <source>Welcome</source>
+                <target>Wilkommen</target>
+            </trans-unit>
+            <trans-unit id="my_awesome_run_diary">
+                <source>My awesome run diary</source>
+                <target>Mein wunderschönes Lauftagebuch</target>
+            </trans-unit>
+            <trans-unit id="hi_there">
+                <source>Hi there,</source>
+                <target>Hallo, </target>
+            </trans-unit>
+            <trans-unit id="username">
+                <source>Username</source>
+                <target>Benutzername</target>
+            </trans-unit>
+            <trans-unit id="password">
+                <source>Password</source>
+                <target>Passwort</target>
+            </trans-unit>
+            <trans-unit id="login">
+                <source>Login</source>
+                <target>Einloggen</target>
+            </trans-unit>
+            <trans-unit id="logout">
+                <source>Logout</source>
+                <target>Ausloggen</target>
+            </trans-unit>
+            <trans-unit id="hi">
+                <source>Hi</source>
+                <target>Hallo</target>
+            </trans-unit>
+            <trans-unit id="days_trained">
+                <source>Days trained</source>
+                <target>Trainingstage</target>
+            </trans-unit>
+            <trans-unit id="entire_distance">
+                <source>Entire distance</source>
+                <target>Gesamtdistanz</target>
+            </trans-unit>
+            <trans-unit id="all_entries">
+                <source>All entries</source>
+                <target>Alle Einträge</target>
+            </trans-unit>
+            <trans-unit id="no_entries">
+                <source>No entries so far</source>
+                <target>Bis jetzt gibts es keine Einträge</target>
+            </trans-unit>
+            <trans-unit id="delete">
+                <source>Delete</source>
+                <target>Löschen</target>
+            </trans-unit>
+            <trans-unit id="date">
+                <source>Date</source>
+                <target>Datum</target>
+            </trans-unit>
+            <trans-unit id="distance">
+                <source>Distance</source>
+                <target>Distanz</target>
+            </trans-unit>
+            <trans-unit id="time">
+                <source>Time</source>
+                <target>Zeit</target>
+            </trans-unit>
+            <trans-unit id="create_entry">
+                <source>Create entry</source>
+                <target>Eintrag erstellen</target>
+            </trans-unit>
+            <trans-unit id="distance_in_km">
+                <source>Distance in km</source>
+                <target>Distanz in km</target>
+            </trans-unit>
+            <trans-unit id="time_in_h">
+                <source>Time in h</source>
+                <target>Zeit in std.</target>
+            </trans-unit>
+            <trans-unit id="avg_speed">
+                <source>Avg. speed in km/h</source>
+                <target>Dursch. Geschw. in km/h</target>
+            </trans-unit>
+            <trans-unit id="please_login">
+                <source>Hey, please login to use some special features</source>
+                <target>Hallo, bitte einloggen um spezielle Features zu nutzen</target>
+            </trans-unit>
+            <trans-unit id="from_first_to_today">
+                <source>Time from first entry to today</source>
+                <target>Zeit von ersten Eintrag bis heute</target>
+            </trans-unit>
+            <trans-unit id="no_one_can_run_that_fast">
+                <source>No one can run that fast! Shame on you!</source>
+                <target>Niemand kann so schnell rennen!</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

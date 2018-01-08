@@ -2,12 +2,13 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}{% trans %}Welcome{% endtrans %}{% endblock %}</title>
         {% block stylesheets %}
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
             <link href="{{ asset('bootswacht.css') }}" rel="stylesheet">
             <link href="{{ asset('style.css') }}" rel="stylesheet">
         {% endblock %}
+
 
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -16,10 +17,10 @@
     </head>
     <body>
         {% block body %}
-            <h1 style="text-align: center; "><a href="/public/index.php/">My awesome run diary</a></h1>
+            <h1 style="text-align: center; "><a href="/public/index.php/">{% trans %}My awesome run diary{% endtrans %}</a></h1>
             {% if is_granted("ROLE_USER") %}
-                Hi {{ app.user.name }}
-                --> <a href="/public/index.php/logout">Logout</a>
+                {% trans %}Hi{% endtrans %} {{ app.user.name }}
+                --> <a href="/public/index.php/logout">{% trans %}Logout{% endtrans %}</a>
             {% endif %}
             {% block content %}{% endblock %}
         {% endblock %}

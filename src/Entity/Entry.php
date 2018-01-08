@@ -50,7 +50,7 @@ class Entry
      * )
      * @Assert\GreaterThan(
      *     0,
-     *     message="Value must be greater than 0"
+     *     message="Value should be greater than zero"
      * )
      */
     private $distance;

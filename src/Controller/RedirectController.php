@@ -24,7 +24,7 @@ class RedirectController extends Controller {
      * @return Response
      */
     public function search(EntityManagerInterface $em, Request $request) {
-        $name = $request->request->get("form")["user"];
+        $name = $request->request->get("form")["name"];
 
         $user = $this->getDoctrine()
             ->getRepository(User::class)

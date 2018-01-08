@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="greater_zero">
+                <source>Value should be greater than zero</source>
+                <target>Wert muss größer 0 sein</target>
+            </trans-unit>
+            <trans-unit id="value_is_not_valid">
+                <source>The value {{ value }} is not a valid {{ type }}.</source>
+                <target>Der Wert {{ value }} ist kein valider {{ type }}.</target>
+            </trans-unit>
+            <trans-unit id="date_future">
+                <source>Date cant be in future</source>
+                <target>Datum kann nicht in der Zukunft liegen.</target>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>
