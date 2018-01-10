@@ -45,14 +45,22 @@ class srcDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             return $this->mergeDefaults(array_replace($matches, array('_route' => 'app_delete_delete')), array (  '_controller' => 'App\\Controller\\Delete::delete',));
         }
 
-        // login
-        if ('/login' === $pathinfo) {
-            return array (  '_controller' => 'App\\Controller\\Login::login',  '_route' => 'login',);
-        }
+        if (0 === strpos($pathinfo, '/l')) {
+            // language
+            if (0 === strpos($pathinfo, '/language') && preg_match('#^/language/(?P<language>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'language')), array (  '_controller' => 'App\\Controller\\LanguageChanger::changeLanguage',));
+            }
 
-        // logout
-        if ('/logout' === $pathinfo) {
-            return array('_route' => 'logout');
+            // login
+            if ('/login' === $pathinfo) {
+                return array (  '_controller' => 'App\\Controller\\Login::login',  '_route' => 'login',);
+            }
+
+            // logout
+            if ('/logout' === $pathinfo) {
+                return array('_route' => 'logout');
+            }
+
         }
 
         // after_login
