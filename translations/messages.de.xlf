@@ -95,8 +95,8 @@
                 <target>Hallo, bitte einloggen um spezielle Features zu nutzen</target>
             </trans-unit>
             <trans-unit id="from_first_to_today">
-                <source>Time from first entry to today</source>
-                <target>Zeit von ersten Eintrag bis heute</target>
+                <source>Days from first entry to today</source>
+                <target>Tage vom ersten Eintrag bis heute</target>
             </trans-unit>
             <trans-unit id="no_one_can_run_that_fast">
                 <source>No one can run that fast! Shame on you!</source>
@@ -126,6 +126,10 @@
                 <source>Search!</source>
                 <target>Suchen!</target>
             </trans-unit>
+            <trans-unit id="search_2">
+                <source>Search</source>
+                <target>Suche</target>
+            </trans-unit>
             <trans-unit id="user_not_found">
                 <source>User not found!</source>
                 <target>Benutzer nicht gefunden!</target>
@@ -137,6 +141,14 @@
             <trans-unit id="english">
                 <source>English</source>
                 <target>Englisch</target>
+            </trans-unit>
+            <trans-unit id="new_entry">
+                <source>Create new entry</source>
+                <target>Neuen Eintrag erstellen</target>
+            </trans-unit>
+            <trans-unit id="user_created">
+                <source>Entry created!</source>
+                <target>Eintrag erstellt!</target>
             </trans-unit>
 
         </body>

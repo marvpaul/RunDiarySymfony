@@ -1,51 +1,49 @@
-
 {% extends "base.html.twig" %}
 
 {% block content %}
 
-
-
-    {% if not is_granted("ROLE_USER") %}
-        {% trans %}Hi there, {% endtrans %} <a href="{{ path('login') }}"> {% trans %}Login{% endtrans %}</a>
-    {% endif %}
-    <br>
-    <a id="change_de" href="{{ path('language', {'language': 'de_DE'}) }}">{% trans %} German {% endtrans %}</a>
-    <br>
-    <a id="change_en"href="{{ path('language', {'language': 'en_US'}) }}">{% trans %} English {% endtrans %}</a>
     <div class="card text-white bg-primary">
         <div class="card-body" id="overview">
-            <div class="alert alert-dismissible alert-success col-3" style="text-align: center; margin: auto; ">
-                <table>
+            <div class="alert alert-dismissible alert-success col-9" style="text-align: center; margin: auto; ">
+                <table width="100%">
                     <tr>
-                        <td>{% trans %}Username{% endtrans %}</td>
+                        <td>{% trans %}Name{% endtrans %}</td>
                         <td>{% trans %}Days trained{% endtrans %}</td>
                         <td>{% trans %}Entire distance{% endtrans %}</td>
                     </tr>
-                {% for user in usersWithStatistics %}
-                    <tr>
-                        <td><a href="{{ path('profile', {'username': user.name})}}">{{ user.name }}</a></td>
-                        <td>{{ user.days_trained }}</td>
-                        <td>{{ user.entire_distance }}</td>
-                    </tr>
-                {% endfor %}
+                    {% for user in usersWithStatistics %}
+                        <tr>
+                            <td><a href="{{ path('profile', {'username': user.name}) }}">{{ user.name }}</a></td>
+                            <td>{{ user.days_trained }}</td>
+                            <td>{{ user.entire_distance }}</td>
+                        </tr>
+                    {% endfor %}
                 </table>
             </div>
         </div>
     </div>
-
-    {% form_theme form 'bootstrap_3_layout.html.twig' %}
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
-
+    <br><br>
+    <div class="card text-white bg-primary">
+        <div class="card-header" id="overview" style="text-align: center;">
+            <i class="fas fa-search"></i> {% trans %}Search{% endtrans %}
+        </div>
+        <div class="card-body" id="overview">
+            <div class="alert alert-dismissible alert-success col-9" style="text-align: center; margin: auto; ">
+                {% form_theme form 'bootstrap_3_layout.html.twig' %}
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
 
     <script>
-        $(function(){
+        $(function () {
             $("#form_name").autocomplete({
                 source: "search/",
                 minLength: 3
             });
-        } );
+        });
     </script>
 
 {% endblock %}

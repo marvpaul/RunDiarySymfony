@@ -4,24 +4,20 @@
 
     {% set can_edit = is_granted('edit', user) %}
 
-    {% if not is_granted("ROLE_USER") %}
-        {% trans %}Hi there, {% endtrans %} <a href="{{ path('login') }}"> {% trans %}Login{% endtrans %}</a>
-    {% endif %}
-
     <div class="card text-white bg-primary">
         <div class="card-body" id="overview">
-            <div class="alert alert-dismissible alert-success col-6" style="text-align: center; margin: auto; ">
+            <div class="alert alert-dismissible alert-success col-11" style="text-align: center; margin: auto; ">
 
 
                 {% trans %}Username {% endtrans %} -> {{ user.name }}<br>
 
                 <!--Summarized information -->
-                {%  if user.entries|length > 0%}
+                {% if user.entries|length > 0 %}
                     {% trans %}Days trained {% endtrans %} -> {{ user.days_trained }}<br>
                     {% if is_granted("ROLE_USER") %}
-                        {% trans %}Time from first entry to today {% endtrans %}-> {{ user.entire_time }}<br>
+                        {% trans %}Days from first entry to today {% endtrans %}-> {{ user.entire_time }} <br>
                     {% endif %}
-                    {% trans %}Entire distance{% endtrans %} -> {{ user.entire_distance }}<br>
+                    {% trans %}Entire distance{% endtrans %} -> {{ user.entire_distance }} km<br>
 
                     <h2>{% trans %}All entries{% endtrans %}</h2>
 
@@ -34,17 +30,21 @@
                                 <td>{% trans %}Time in h{% endtrans %}</td>
                                 <td>{% trans %}Avg. speed in km/h{% endtrans %}</td>
                             {% endif %}
-                            {% if can_edit %}<td>{% trans %}Delete{% endtrans %}</td>{% endif %}
+                            {% if can_edit %}
+                                <td>{% trans %}Delete{% endtrans %}</td>{% endif %}
                         </tr>
                         {% for entry in user.entries %}
                             <tr>
-                                <td>{{ entry.date |date('Y-m-d')}}</td>
+                                <td>{{ entry.date |date('Y-m-d') }}</td>
                                 <td>{{ entry.distance }}</td>
                                 {% if is_granted("ROLE_USER") %}
                                     <td>{{ entry.time|round(2, 'floor') }}</td>
                                     <td>{{ entry.getAvgSpeed() }}</td>
                                 {% endif %}
-                                {% if can_edit %}<td><a href="{{ path('deleteEntry', {'entryId': entry.id, 'userId': user.id})}}" class="delete-button btn btn-block btn-info">{% trans %}Delete{% endtrans %}</a></td>{% endif %}
+                                {% if can_edit %}
+                                    <td><a href="{{ path('deleteEntry', {'entryId': entry.id, 'userId': user.id}) }}"
+                                           class="delete-button btn btn-block btn-info">{% trans %}Delete{% endtrans %}</a>
+                                    </td>{% endif %}
                             </tr>
                         {% endfor %}
                     </table>
@@ -57,18 +57,30 @@
     </div>
 
     {% if can_edit %}
-        <!-- Error log -->
-        {% if errors|length > 0 %}
-            {% for error in errors %}
-                {{ error.message }}<br>
-            {% endfor %}
-        {% endif %}
 
-        <!--Form for new entry -->
-        {% form_theme form 'bootstrap_3_layout.html.twig' %}
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        {{ form_end(form) }}
+        <br>
+        <br>
+        <div class="card text-white bg-primary">
+
+            <div class="card-header" id="overview" style="text-align: center;">
+                <i class="fas fa-search"></i> {% trans %}Create new entry{% endtrans %}
+            </div>
+            <div class="card-body" id="overview">
+                <!-- Error log -->
+                {% if errors|length > 0 %}
+                    {% for error in errors %}
+                        <div class="alert alert-danger" role="alert">
+                            <i class="fas fa-exclamation"></i>   {{ error.message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <!--Form for new entry -->
+                {% form_theme form 'bootstrap_3_layout.html.twig' %}
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
     {% endif %}
 
 {% endblock %}

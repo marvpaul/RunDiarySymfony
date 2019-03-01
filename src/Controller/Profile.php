@@ -74,8 +74,16 @@ class Profile extends Controller
 
             // This statement is only reached in case the entry was validated successfully
             $entryService->addEntry($entry);
+
+            $this->addFlash(
+                'notice',
+                $translator->trans('Entry created!')
+            );
         }
 
+
+        # Reload the entries cause one could be added via form
+        $userWithStatistics = $userStatisticsGenerator->getStatisticsUser($username);
         return $this->render('user.twig', array(
             'user' => $userWithStatistics,
             'form' => $form->createView(),

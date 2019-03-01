@@ -8,15 +8,21 @@
     {% endif %}
 
     {% if  not is_granted("ROLE_USER") %}
-        {% trans %}Hey, please login to use some special features{% endtrans %}
+        <div class="alert alert-primary" role="alert">
+            <i class="fas fa-sign-in-alt"></i> {% trans %}Hey, please login to use some special features{% endtrans %}
+        </div>
         <form action="{{ path('login') }}" method="post">
-            <label for="username">{% trans %}Username{% endtrans %}</label>
-            <input type="text" id="username" name="_username" value="{{ last_username }}" />
+            <div class="form-group">
+                <label for="username">{% trans %}Username{% endtrans %}</label>
+                <input type="text" id="username" class="form-control" name="_username" value="{{ last_username }}" />
+            </div>
 
-            <label for="password">{% trans %}Password{% endtrans %}</label>
-            <input type="password" id="password" name="_password" />
+            <div class="form-group">
+                <label for="_assword">{% trans %}Password{% endtrans %}</label>
+                <input type="password" id="password" class="form-control" name="_password" />
+            </div>
 
-            <button action="{{ path('login') }}" method="post">{% trans %}Login{% endtrans %}</button>
+            <button action="{{ path('login') }}" method="post" class="btn btn-primary">{% trans %}Login{% endtrans %}</button>
         </form>
     {% endif %}
 
