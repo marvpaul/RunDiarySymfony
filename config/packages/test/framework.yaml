@@ -3,3 +3,6 @@ framework:
     # Uncomment this section if you're using sessions
     #session:
     #    storage_id: session.storage.mock_file
+    # Uncomment this section if you're using sessions
+    session:
+        storage_id: session.storage.mock_file
