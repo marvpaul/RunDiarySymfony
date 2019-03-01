@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Controller;
+
 use App\Entity\Entry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -11,32 +13,47 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 use App\Entity\User;
-class Login extends Controller {
+use Symfony\Component\Translation\TranslatorInterface;
+
+class Login extends Controller
+{
     /**
      * @Route("/login", name="login")
+     * @param AuthenticationUtils $authUtils
+     * @param TranslatorInterface $translator
+     * @return Response renders the login template
      */
-    public function login(Request $request, AuthenticationUtils $authUtils){
+    public function login(AuthenticationUtils $authUtils, TranslatorInterface $translator)
+    {
 
         // get the login error if there is one
         $error = $authUtils->getLastAuthenticationError();
 
-        // last username entered by the user
-        $lastUsername = $authUtils->getLastUsername();
+        if (!is_null($error)) {
+            $this->addFlash(
+                'notice',
+                $translator->trans('No valid credentials!')
+            );
+        }
 
+        // render login template using the latest username entered by the user as input value
         return $this->render('login.twig', array(
-            'last_username' => $lastUsername,
-            'error'         => $error,
+            'last_username' => $authUtils->getLastUsername()
         ));
     }
 
     /**
      * @Route("/after_login", name="after_login")
+     * @param UserInterface|null $loggedin_user
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse redirect either to the profile of a
+     * logged in user or to index page
      */
-    public function after_login(UserInterface $loggedin_user = null){
-        if($loggedin_user == null){
-            return $this->redirect('/public/index.php/');
-        } else{
-            return $this->redirect('/public/index.php/profile/'. $loggedin_user->getName());
+    public function after_login(UserInterface $loggedin_user = null)
+    {
+        if (is_null($loggedin_user)) {
+            return $this->redirectToRoute('index');
+        } else {
+            return $this->redirectToRoute('profile', array('username' => $loggedin_user->getName()));
         }
     }
 }

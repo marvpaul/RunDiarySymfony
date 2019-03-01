@@ -1,33 +1,54 @@
 <?php
+
 namespace App\Controller;
+
+use App\Service\EntryService;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\User;
-use App\Entity\Entry;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
-class Delete extends Controller {
+class Delete extends Controller
+{
     /**
-     * @Route("/delete/{entryid}/{userid}")
-     * @param $date a date to delete
-     * @return Response
+     * @Route("/delete/{entryId}/{userId}", name="deleteEntry")
+     * @param int $entryId the id of the entry a user wants to delete
+     * @param int $userId the id of the user which owns the entry
+     * @param ObjectManager $manager
+     * @param TranslatorInterface $translator
+     * @param EntryService $deleteEntryService
+     * @param UserInterface|null $loggedin_user
+     * @return Response redirects to the profile of the logged in user
      */
-    public function delete($entryid, $userid, ObjectManager $manager, UserInterface $loggedin_user = null) {
+    public function delete(
+        int $entryId,
+        int $userId,
+        TranslatorInterface $translator,
+        EntryService $deleteEntryService,
+        UserInterface $loggedin_user = null
+    ) {
 
-        //The user which wanna to delete an entry is logged in as same user
-        if($loggedin_user->getId() == $userid){
-            $entry = $manager
-                ->getRepository(Entry::class)
-                ->findOneBy(['id' => $entryid, 'user_id' => $userid]);
-            $manager->remove($entry);
-            $manager->flush();
+        //The user which wanna to delete an entry is logged in as this user
+        if ($loggedin_user->getId() == $userId) {
+
+            $deleteEntryService->deleteEntry($entryId, $userId);
+
+            $this->addFlash(
+                'notice',
+                $translator->trans('Entry deleted successfully!')
+            );
+        } else {
+            $this->addFlash(
+                'notice',
+                $translator->trans('You can not delete an entry which you do not own!')
+            );
         }
 
         //Redirect back to profile
-        return $this->redirect('/public/index.php/profile/'. $loggedin_user->getName());
+        return $this->redirectToRoute('profile', array('username' => $loggedin_user->getName()));
 
     }
 }

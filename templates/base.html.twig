@@ -13,20 +13,35 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     </head>
     <body>
         {% block body %}
-            <h1 style="text-align: center; "><a href="/public/index.php/">{% trans %}My awesome run diary{% endtrans %}</a></h1>
+            {# Took from here --> https://symfony.com/doc/current/controller.html #}
+            {# read and display all flash messages #}
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="flash flash-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+
+            <h1 style="text-align: center; "><a href="{{ path('index') }}">{% trans %}My awesome run diary{% endtrans %}</a></h1>
             {% if is_granted("ROLE_USER") %}
                 {% trans %}Hi{% endtrans %} {{ app.user.name }}
-                --> <a href="/public/index.php/logout">{% trans %}Logout{% endtrans %}</a>
+                --> <a href="{{ path('logout') }}">{% trans %}Logout{% endtrans %}</a>
             {% endif %}
             {% block content %}{% endblock %}
         {% endblock %}
         {% block javascripts %}
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+            <script>
+                setTimeout(function() {
+                    $(".flash").fadeOut().empty();
+                }, 5000);
+            </script>
         {% endblock %}
     </body>
 </html>

@@ -2,6 +2,7 @@
 namespace App\Controller;
 use App\Entity\Entry;
 use App\Entity\User;
+use App\Service\UserStatisticsGenerator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -21,55 +22,29 @@ use Symfony\Component\Translation\TranslatorInterface;
 class DefaultController extends Controller {
 
 
-
     /**
+     * This is the default route where you can see statistics about each user and a searchbar
      * @Route("/")
+     * @param Request $request
+     * @param TranslatorInterface $translator
      * @return Response
      */
-    public function index(Request $request, TranslatorInterface $translator) {
+    public function index(Request $request, TranslatorInterface $translator, UserStatisticsGenerator $userStatisticsGenerator) {
         //Get all users
-        $users = $this->getDoctrine()
-            ->getRepository(User::class)
-            ->findAll();
-
-        //Get all entries
-        $entries = $this->getDoctrine()
-            ->getRepository(Entry::class)
-            ->findAll();
-
-        $entriesPerUser = null;
-        foreach ($users as $user){
-            $user->days_trained = 0;
-            $user->entire_distance = 0;
-        }
-
-        //Go through each entry and create statistics
-        foreach($entries as $entry){
-            //Get owner of the entry
-            $entry_owner = $this->getDoctrine()
-                ->getRepository(User::class)
-                ->findOneBy(['id' => $entry->getUserId()]);
-            foreach($users as $user){
-                if($entry_owner->getName() == $user->getName() ){
-                    $user->user_entries[] = $entry;
-                    $user->entire_distance += $entry->getDistance();
-                    $user->days_trained += 1;
-                }
-            }
-        }
+        $usersWithStatistics =  $userStatisticsGenerator->getStatisticsForAllUsers();
 
         //Create a formular
         $form = $this->createFormBuilder()
-            ->setAction($this->generateUrl('go'))
+            ->setAction($this->generateUrl('search_user'))
             ->setMethod('POST')
             ->add('name', TextType::class)
-            ->add('Save', SubmitType::class, array('label' => 'Go!!!'))
+            ->add('Save', SubmitType::class, array('label' => $translator->trans("Search!")))
             ->getForm();
 
         $form->handleRequest($request);
 
         return $this->render('overview.twig', array(
-            'users' => $users,
+            'usersWithStatistics' => $usersWithStatistics,
             'form' => $form->createView()
         ));
     }

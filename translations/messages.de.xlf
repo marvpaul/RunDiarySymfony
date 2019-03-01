@@ -102,6 +102,43 @@
                 <source>No one can run that fast! Shame on you!</source>
                 <target>Niemand kann so schnell rennen!</target>
             </trans-unit>
+            <trans-unit id="name">
+                <source>Name</source>
+                <target>Name</target>
+            </trans-unit>
+            <trans-unit id="not_valid">
+                <source>No valid credentials!</source>
+                <target>Fehlerhafte Zugangsdaten!</target>
+            </trans-unit>
+            <trans-unit id="save">
+                <source>Save</source>
+                <target>Speichern</target>
+            </trans-unit>
+            <trans-unit id="entry_deleted">
+                <source>Entry deleted successfully!</source>
+                <target>Eintrag erfolgreich gelöscht!</target>
+            </trans-unit>
+            <trans-unit id="entry_deleted_failed">
+                <source>You can not delete an entry which you do not own!</source>
+                <target>Du kannst Einträge nicht löschen, die nicht von dir sind!</target>
+            </trans-unit>
+            <trans-unit id="search">
+                <source>Search!</source>
+                <target>Suchen!</target>
+            </trans-unit>
+            <trans-unit id="user_not_found">
+                <source>User not found!</source>
+                <target>Benutzer nicht gefunden!</target>
+            </trans-unit>
+            <trans-unit id="german">
+                <source>German</source>
+                <target>Deutsch</target>
+            </trans-unit>
+            <trans-unit id="english">
+                <source>English</source>
+                <target>Englisch</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>

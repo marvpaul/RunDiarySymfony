@@ -5,7 +5,7 @@
     {% set can_edit = is_granted('edit', user) %}
 
     {% if not is_granted("ROLE_USER") %}
-        {% trans %}Hi there, {% endtrans %} <a href="/public/index.php/login"> {% trans %}Login{% endtrans %}</a>
+        {% trans %}Hi there, {% endtrans %} <a href="{{ path('login') }}"> {% trans %}Login{% endtrans %}</a>
     {% endif %}
 
     <div class="card text-white bg-primary">
@@ -44,7 +44,7 @@
                                     <td>{{ entry.time|round(2, 'floor') }}</td>
                                     <td>{{ entry.getAvgSpeed() }}</td>
                                 {% endif %}
-                                {% if can_edit %}<td><a href="/public/index.php/delete/{{ entry.id}}/{{ user.id }}" class="delete-button btn btn-block btn-info">{% trans %}Delete{% endtrans %}</a></td>{% endif %}
+                                {% if can_edit %}<td><a href="{{ path('deleteEntry', {'entryId': entry.id, 'userId': user.id})}}" class="delete-button btn btn-block btn-info">{% trans %}Delete{% endtrans %}</a></td>{% endif %}
                             </tr>
                         {% endfor %}
                     </table>
@@ -60,7 +60,7 @@
         <!-- Error log -->
         {% if errors|length > 0 %}
             {% for error in errors %}
-                {{ error }}<br>
+                {{ error.message }}<br>
             {% endfor %}
         {% endif %}
 

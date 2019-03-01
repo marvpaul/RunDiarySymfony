@@ -1,14 +1,10 @@
 {% extends "base.html.twig" %}
 
 {% block content %}
-
-    {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
     {% if is_granted("ROLE_USER") %}
         Hi {{ app.user.name }},
         you're logged in. Wanna to logout?
-        --> <a href="/public/index.php/logout">{% trans %}Logout{% endtrans %}</a>
+        --> <a href="{{ path('logout') }}">{% trans %}Logout{% endtrans %}</a>
     {% endif %}
 
     {% if  not is_granted("ROLE_USER") %}
@@ -19,12 +15,6 @@
 
             <label for="password">{% trans %}Password{% endtrans %}</label>
             <input type="password" id="password" name="_password" />
-
-            {#
-                If you want to control the URL the user
-                is redirected to on success (more details below)
-                <input type="hidden" name="_target_path" value="/account" />
-            #}
 
             <button action="{{ path('login') }}" method="post">{% trans %}Login{% endtrans %}</button>
         </form>

@@ -6,12 +6,12 @@
 
 
     {% if not is_granted("ROLE_USER") %}
-        {% trans %}Hi there, {% endtrans %} <a href="/public/index.php/login"> {% trans %}Login{% endtrans %}</a>
+        {% trans %}Hi there, {% endtrans %} <a href="{{ path('login') }}"> {% trans %}Login{% endtrans %}</a>
     {% endif %}
     <br>
-    <a href="/public/index.php/language/de_DE">Deutsch</a>
+    <a id="change_de" href="{{ path('language', {'language': 'de_DE'}) }}">{% trans %} German {% endtrans %}</a>
     <br>
-    <a href="/public/index.php/language/en_US">Englisch</a>
+    <a id="change_en"href="{{ path('language', {'language': 'en_US'}) }}">{% trans %} English {% endtrans %}</a>
     <div class="card text-white bg-primary">
         <div class="card-body" id="overview">
             <div class="alert alert-dismissible alert-success col-3" style="text-align: center; margin: auto; ">
@@ -21,9 +21,9 @@
                         <td>{% trans %}Days trained{% endtrans %}</td>
                         <td>{% trans %}Entire distance{% endtrans %}</td>
                     </tr>
-                {% for user in users %}
+                {% for user in usersWithStatistics %}
                     <tr>
-                        <td><a href="/public/index.php/profile/{{ user.name }}">{{ user.name }}</a></td>
+                        <td><a href="{{ path('profile', {'username': user.name})}}">{{ user.name }}</a></td>
                         <td>{{ user.days_trained }}</td>
                         <td>{{ user.entire_distance }}</td>
                     </tr>

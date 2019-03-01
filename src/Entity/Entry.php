@@ -34,12 +34,15 @@ class Entry
      * )*/
     private $date;
 
-    /** @ORM\Column(type="decimal")
+    /** @ORM\Column(type="float")
      *  @Assert\Type(
-     *     type="datetime",
+     *     type="float",
      *     message="The value {{ value }} is not a valid {{ type }}."
      * )
-     * @AcmeAssert\SmallTime
+     * @Assert\GreaterThan(
+     *     0,
+     *     message="Value should be greater than zero"
+     * )
      */
     private $time;
 
@@ -55,7 +58,12 @@ class Entry
      */
     private $distance;
 
-    /** @ORM\Column(type="decimal") */
+    /** @ORM\Column(type="integer")
+     * @Assert\LessThan(
+     *     40,
+     *     message="No one can run that fast! Shame on you!"
+     * )
+     */
     private $avg_speed;
 
     /**

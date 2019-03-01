@@ -1,7 +1,10 @@
 <?php
+
 namespace App\Controller;
+
 use App\Entity\Entry;
-use DateTime;
+use App\Service\EntryService;
+use App\Service\UserStatisticsGenerator;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -18,169 +21,150 @@ use App\Entity\User;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
-class Profile extends Controller {
+class Profile extends Controller
+{
     /**
-     * @Route("/profile/{username}")
+     * @Route("/profile/{username}", name="profile")
+     * @param Request $request
+     * @param string $username
+     * @param EntryService $entryService
+     * @param UserStatisticsGenerator $userStatisticsGenerator
+     * @param TranslatorInterface $translator
+     * @param UserInterface|null $loggedin_user
      * @return Response
      */
-    public function profile(Request $request, ObjectManager $manager, UserInterface $loggedin_user = null, $username, TranslatorInterface $translator) {
+    public function profile(
+        Request $request,
+        string $username,
+        EntryService $entryService,
+        UserStatisticsGenerator $userStatisticsGenerator,
+        TranslatorInterface $translator,
+        UserInterface $loggedin_user = null
+    ) {
+        //Get the current userWithStatistics object and enrich with stats
+        $userWithStatistics = $userStatisticsGenerator->getStatisticsUser($username);
 
-        //Get the current user object
-        $user = $this->getDoctrine()
-            ->getRepository(User::class)
-            ->findOneBy(['name' => $username]);
+        // Requested userWithStatistics does not exists
+        if (!$userWithStatistics) {
+            return $this->render('not_found.twig', array(
+                'message' => 'User ' . $username . ' not found'
+            ));
+        }
 
-        //Create a formular
-        $form = $this->createFormBuilder()
+        //Create a formular and handle a possible request
+        $form = $this->createEntryForm($translator);
+        $form->handleRequest($request);
+
+        //In case form was submitted, validate the values and save to DB in case the form is valid
+        if ($form->isSubmitted()) {
+            // Retrieve entry data from form
+            $entry = $entryService->parseEntryFromForm($form, $loggedin_user->getId());
+
+            // Check for errors
+            $validator = $this->get('validator');
+            $errors = $validator->validate($entry);
+            if (count($errors) > 0) {
+                //Render user template with errors
+                return $this->render('user.twig', array(
+                    'user' => $userWithStatistics,
+                    'form' => $form->createView(),
+                    'errors' => $errors
+                ));
+            }
+
+            // This statement is only reached in case the entry was validated successfully
+            $entryService->addEntry($entry);
+        }
+
+        return $this->render('user.twig', array(
+            'user' => $userWithStatistics,
+            'form' => $form->createView(),
+            'errors' => []
+        ));
+    }
+
+    /**
+     * Creates a form for an run entry
+     * @param TranslatorInterface $translator
+     * @return \Symfony\Component\Form\FormInterface the created form
+     */
+    private function createEntryForm(TranslatorInterface $translator)
+    {
+        return $this->createFormBuilder()
             ->setMethod('GET')
             ->add($translator->trans('Time'), TimeType::class)
             ->add($translator->trans('Date'), DateType::class)
             ->add($translator->trans('Distance'), IntegerType::class)
             ->add($translator->trans('Save'), SubmitType::class, array('label' => 'Create entry'))
             ->getForm();
-
-        $form->handleRequest($request);
-
-        //In case form was submitted, validate the values and save to DB in case the form is valid
-        if ($form->isSubmitted()) {
-            $distance = $form[$translator->trans('Distance')]->getData();
-            $date = $form[$translator->trans('Date')]->getData();
-            $time = $form[$translator->trans('Time')]->getData();
-
-            $entry = new Entry();
-            $entry->setDate($date);
-            $entry->setDistance($distance);
-            $entry->setTime($time);
-            $entry->setUserId($loggedin_user->getId());
-
-
-            $validator = $this->get('validator');
-            $errors = $validator->validate($entry);
-
-            if (count($errors) > 0) {
-                //String with all error included in
-                $errorsString = (string) $errors;
-
-                $user = $this->getEntries($user, $username);
-
-                //Render user template with errors
-                return $this->render('user.twig', array(
-                    'user' => $user,
-                    'form' => $form->createView(),
-                    'errors' => $errors
-                ));
-            }
-
-            //Parse hours
-            $hours = (float)$form[$translator->trans('Time')]->getData()->format("g") + ((float)$form[$translator->trans('Time')]->getData()->format("i")) / 60;
-            $entry->setTime($hours);
-
-            //Set avg speed
-            $avg_speed = round($distance / $hours, 2);
-
-            //Check if avg speed includes a valid value
-            if($avg_speed > 40){
-                $user = $this->getEntries($user, $username);
-                return $this->render('user.twig', array(
-                    'user' => $user,
-                    'form' => $form->createView(),
-                    'errors' => [$translator->trans('No one can run that fast! Shame on you!')]
-                ));
-            } else{
-                $entry->setAvgSpeed($avg_speed);
-            }
-            //Push the new entry to db
-            $manager->persist($entry);
-            $manager->flush();
-        }
-
-
-
-        //Ooops, user does not exists :/
-        if (!$user) {
-            return $this->render('not_found.twig', array(
-                'message' => 'User ' . $username . ' not found'
-            ));
-        }
-
-        $user = $this->getEntries($user, $username);
-
-        return $this->render('user.twig', array(
-            'user' => $user,
-            'form' => $form->createView(),
-            'errors' => []
-        ));
-
-
-
-    }
-
-    private function getEntries($user, $username){
-        //Get all user entries
-        $entries = $this->getDoctrine()
-            ->getRepository(Entry::class)
-            ->findBy(['user_id' => $user->getId()]);
-
-        $entire_disance = 0;
-        $days_between = 0;
-        foreach($entries as $entry){
-            $entire_disance += $entry->getDistance();
-        }
-
-        if(count($entries) >= 2){
-            uasort($entries, function ( $a, $b ) {
-                return $b->getDate()->getTimestamp() - $a->getDate()->getTimestamp();
-            });
-            $start_date = $entries[0]->getDate();
-            $end_date = new DateTime();
-            $days_between = floor(abs($start_date->getTimestamp() - $end_date->getTimestamp()) / 86400);
-        }
-
-
-        $user->entries = $entries;
-        $user->days_trained = count($entries);
-        $user->entire_time = $days_between;
-        $user->entire_distance = $entire_disance;
-        return $user;
     }
 
     /**
+     * Route for getting the user data in several formats.
      * @Route("/profile/{username}/diary.{_format}", defaults={"_format"="html"})
+     * @param Request $request
+     * @param string $username
+     * @param UserStatisticsGenerator $userStatisticsGenerator
+     * @param UserInterface|null $loggedin_user
      * @return Response
      */
-    public function showUser(Request $request, $username, UserInterface $loggedin_user = null) {
+    public function showUser(
+        Request $request,
+        string $username,
+        UserStatisticsGenerator $userStatisticsGenerator,
+        UserInterface $loggedin_user = null
+    ) {
         $format = $request->getRequestFormat();
-        if($loggedin_user != null){
-            //Get the current user object
-            $user = $this->getDoctrine()
-                ->getRepository(User::class)
-                ->findOneBy(['name' => $username]);
-            $user = $this->getEntries($user, $username);
-            if($format == "json"){
-                $response = new Response();
-                $response->setContent($this->render('diary.json.twig', array(
-                    'user' => $user
-                ))->getContent());
-                $response->headers->set('Content-Type', 'application/json');
-                return $response;
-            } elseif ($format == "csv"){
-                $fileContent = $this->render('diary.csv.twig', array(
-                    'user' => $user
-                ))->getContent(); // the generated file content
-                $response = new Response($fileContent);
 
-                $disposition = $response->headers->makeDisposition(
-                    ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-                    $user->getName().'.csv'
-                );
-
-                $response->headers->set('Content-Disposition', $disposition);
-                return $response;
-            } else{
-                return $this->redirect('/public/index.php');
+        // You have to be logged in to use this service
+        if ($loggedin_user != null) {
+            //Get the current user object with statistics
+            $userWithStatistics = $userStatisticsGenerator->getStatisticsUser($username);
+            switch ($format) {
+                case "json":
+                    return $this->generateJsonFromUser($userWithStatistics);
+                case "csv":
+                    return $this->generateCsvFromUser($userWithStatistics);
+                default:
+                    return $this->redirectToRoute('index');
             }
-        } else{
-            return $this->redirect('/public/index.php/login');
+        } else {
+            return $this->redirectToRoute('login');
         }
+    }
+
+    /**
+     * Generates csv file from given user with statistics and return a response object which includes this file
+     * @param $userWithStatistics the requested user enriched with statistics
+     * @return Response response object including csv file attachment with user data
+     */
+    private function generateCsvFromUser($userWithStatistics) {
+        $fileContent = $this->render('diary.csv.twig', array(
+            'user' => $userWithStatistics
+        ))->getContent(); // the generated file content
+        $response = new Response($fileContent);
+
+        $disposition = $response->headers->makeDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            $userWithStatistics->getName() . '.csv'
+        );
+
+        $response->headers->set('Content-Disposition', $disposition);
+        return $response;
+    }
+
+    /**
+     * Generates json file from given user with statistics and return a response object which includes this file
+     * @param $userWithStatistics the requested user enriched with statistics
+     * @return Response response object including json file attachment with user data
+     */
+    private function generateJsonFromUser($userWithStatistics)
+    {
+        $response = new Response();
+        $response->setContent($this->render('diary.json.twig', array(
+            'user' => $userWithStatistics
+        ))->getContent());
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 }
