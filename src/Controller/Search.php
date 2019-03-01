@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Controller;
+
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -11,7 +13,8 @@ use App\Entity\User;
 use App\Entity\Entry;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class Search extends Controller {
+class Search extends Controller
+{
 
     /**
      * Tries to determine profile names which includes a given query.
@@ -19,11 +22,12 @@ class Search extends Controller {
      * @Route("/search/")
      * @return Response a list of max. 10 usernames which includes a given query.
      */
-    public function searchForAutocompl(EntityManagerInterface $em, Request $request) {
+    public function searchForAutocompl(EntityManagerInterface $em, Request $request)
+    {
         $query = $request->get("term");
 
         //Only proceed in case no special characters are given and string length in greater 3
-        if(preg_match("/^[a-zA-Z0-9]+$/", $query) != 1 || strlen($query) < 3) {
+        if (preg_match("/^[a-zA-Z0-9]+$/", $query) != 1 || strlen($query) < 3) {
             return new Response('[]');
         }
 
@@ -34,7 +38,9 @@ class Search extends Controller {
             ->getResult();
 
         // Get 10 names which contain the requested query
-        $names = array_map(function ($user) { return $user->getName(); }, $users);
+        $names = array_map(function ($user) {
+            return $user->getName();
+        }, $users);
         $names = array_slice($names, 0, 10);
 
         //Redirect back to profile

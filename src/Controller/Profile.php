@@ -146,7 +146,8 @@ class Profile extends Controller
      * @param $userWithStatistics the requested user enriched with statistics
      * @return Response response object including csv file attachment with user data
      */
-    private function generateCsvFromUser($userWithStatistics) {
+    private function generateCsvFromUser($userWithStatistics)
+    {
         $fileContent = $this->render('diary.csv.twig', array(
             'user' => $userWithStatistics
         ))->getContent(); // the generated file content

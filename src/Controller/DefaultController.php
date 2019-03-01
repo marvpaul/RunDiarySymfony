@@ -27,6 +27,7 @@ class DefaultController extends Controller {
      * @Route("/")
      * @param Request $request
      * @param TranslatorInterface $translator
+     * @param UserStatisticsGenerator $userStatisticsGenerator
      * @return Response
      */
     public function index(Request $request, TranslatorInterface $translator, UserStatisticsGenerator $userStatisticsGenerator) {
