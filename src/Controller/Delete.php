@@ -17,7 +17,6 @@ class Delete extends Controller
      * @Route("/delete/{entryId}/{userId}", name="deleteEntry")
      * @param int $entryId the id of the entry a user wants to delete
      * @param int $userId the id of the user which owns the entry
-     * @param ObjectManager $manager
      * @param TranslatorInterface $translator
      * @param EntryService $deleteEntryService
      * @param UserInterface|null $loggedin_user

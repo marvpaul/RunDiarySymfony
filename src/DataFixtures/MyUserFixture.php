@@ -43,7 +43,6 @@ class MyUserFixture extends Fixture {
         $manager->persist($user5);
 
         print("Creating some users");
-        // actually executes the queries (i.e. the INSERT query)
         $manager->flush();
 
     }

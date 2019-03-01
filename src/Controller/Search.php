@@ -12,60 +12,20 @@ use App\Entity\Entry;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class Search extends Controller {
-    /**
-     * @Route("/search/{query}")
-     *
-     * @param $date a date to delete
-     * @return Response
-     */
-    public function search(EntityManagerInterface $em, $query) {
-
-        //Check for special chars
-        if(preg_match("/^[a-zA-Z0-9]+$/", $query) != 1 || strlen($query) < 3) {
-            return new Response('[]');
-        }
-
-        //Get the current user object
-        $qb = $em->createQueryBuilder();
-
-        $em = $qb->getEntityManager();
-
-        $users = $em->getRepository(User::class)->createQueryBuilder('u')
-            ->where('u.name LIKE :userquery')
-            ->setParameter('userquery', $query . '%')
-            ->getQuery()
-            ->getResult();
-
-        $names = [];
-
-
-        for($i = 0; $i < count($users) && $i < 10; $i++){
-            $names[] = $users[$i]->getName();
-        }
-
-        //Redirect back to profile
-        return new Response(json_encode($names));
-
-    }
 
     /**
+     * Tries to determine profile names which includes a given query.
+     * The query should be provided in form data with key: term
      * @Route("/search/")
-     *
-     * @param $date a date to delete
-     * @return Response
+     * @return Response a list of max. 10 usernames which includes a given query.
      */
     public function searchForAutocompl(EntityManagerInterface $em, Request $request) {
         $query = $request->get("term");
 
-        //Check for special chars
+        //Only proceed in case no special characters are given and string length in greater 3
         if(preg_match("/^[a-zA-Z0-9]+$/", $query) != 1 || strlen($query) < 3) {
             return new Response('[]');
         }
-
-        //Get the current user object
-        $qb = $em->createQueryBuilder();
-
-        $em = $qb->getEntityManager();
 
         $users = $em->getRepository(User::class)->createQueryBuilder('u')
             ->where('u.name LIKE :userquery')
@@ -73,12 +33,9 @@ class Search extends Controller {
             ->getQuery()
             ->getResult();
 
-        $names = [];
-
-
-        for($i = 0; $i < count($users) && $i < 10; $i++){
-            $names[] = $users[$i]->getName();
-        }
+        // Get 10 names which contain the requested query
+        $names = array_map(function ($user) { return $user->getName(); }, $users);
+        $names = array_slice($names, 0, 10);
 
         //Redirect back to profile
         return new Response(json_encode($names));

@@ -44,7 +44,6 @@ class MyEntryFixture extends Fixture {
 
 
         print("Creating some entries");
-        // actually executes the queries (i.e. the INSERT query)
         $manager->flush();
 
     }
