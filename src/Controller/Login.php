@@ -18,6 +18,7 @@ use Symfony\Component\Translation\TranslatorInterface;
 class Login extends Controller
 {
     /**
+     * Route to login into the run diary.
      * @Route("/login", name="login")
      * @param AuthenticationUtils $authUtils
      * @param TranslatorInterface $translator

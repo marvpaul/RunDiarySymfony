@@ -14,6 +14,8 @@ use Symfony\Component\Translation\TranslatorInterface;
 class Delete extends Controller
 {
     /**
+     * Route to delete a certain entry given a userId and an entryId.
+     * Note: You can only delete entries in case you're logged in and you're the owner of the entry!
      * @Route("/delete/{entryId}/{userId}", name="deleteEntry")
      * @param int $entryId the id of the entry a user wants to delete
      * @param int $userId the id of the user which owns the entry

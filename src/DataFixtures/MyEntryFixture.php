@@ -19,6 +19,11 @@ class MyEntryFixture extends Fixture {
         $this->encoder = $encoder;
     }
 
+    /**
+     * Simple fixture to create some mock entry data
+     * @param ObjectManager $manager
+     * @throws \Exception
+     */
     public function load(ObjectManager $manager) {
         $entry1 = new Entry();
         $entry1->setAvgSpeed(10.0);

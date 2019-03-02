@@ -24,6 +24,9 @@ use Symfony\Component\Translation\TranslatorInterface;
 class Profile extends Controller
 {
     /**
+     * Route for showing a certain profile which is specified by username param.
+     * Note: In case you're not logged in, you can only see some features of the run diary. Log in to
+     * gain full access to the diary entries.
      * @Route("/profile/{username}", name="profile")
      * @param Request $request
      * @param string $username

@@ -27,6 +27,7 @@ use Symfony\Component\Translation\Translator;
 class LanguageChanger extends Controller
 {
     /**
+     * Route to change language. You can at the moment choose between english and german by using either de_DE or en_US
      * @Route("/language/{language}", name="language")
      * @param SessionInterface $session
      * @param string $language the language which was selected by the user. Possible values are en_US or de_DE

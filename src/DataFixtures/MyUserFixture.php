@@ -16,6 +16,10 @@ class MyUserFixture extends Fixture {
         $this->encoder = $encoder;
     }
 
+    /**
+     * Simple fixture to create mock user data.
+     * @param ObjectManager $manager
+     */
     public function load(ObjectManager $manager) {
         $user1 = new User();
         $user1->setName('peter');
