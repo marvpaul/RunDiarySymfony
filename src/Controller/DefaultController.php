@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Controller;
+
 use App\Entity\Entry;
 use App\Entity\User;
 use App\Service\UserStatisticsGenerator;
@@ -19,7 +21,8 @@ use Symfony\Component\Validator\Constraints\DateTime;
 use App\Form\Type\UserSearchType;
 use Symfony\Component\Translation\TranslatorInterface;
 
-class DefaultController extends Controller {
+class DefaultController extends Controller
+{
 
 
     /**
@@ -30,9 +33,13 @@ class DefaultController extends Controller {
      * @param UserStatisticsGenerator $userStatisticsGenerator
      * @return Response
      */
-    public function index(Request $request, TranslatorInterface $translator, UserStatisticsGenerator $userStatisticsGenerator) {
+    public function index(
+        Request $request,
+        TranslatorInterface $translator,
+        UserStatisticsGenerator $userStatisticsGenerator
+    ) {
         //Get all users
-        $usersWithStatistics =  $userStatisticsGenerator->getStatisticsForAllUsers();
+        $usersWithStatistics = $userStatisticsGenerator->getStatisticsForAllUsers();
 
         //Create a formular
         $form = $this->createFormBuilder()
