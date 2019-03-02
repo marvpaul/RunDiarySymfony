@@ -24,18 +24,19 @@ class Entry
     private $user_id;
 
     /** @ORM\Column(type="date")
-     *  @Assert\Type(
+     * @Assert\Type(
      *     type="datetime",
      *     message="The value {{ value }} is not a valid {{ type }}."
      * )
      * @Assert\LessThan(
      *     "now",
      *     message="Date cant be in future"
-     * )*/
+     * )
+     */
     private $date;
 
     /** @ORM\Column(type="float")
-     *  @Assert\Type(
+     * @Assert\Type(
      *     type="float",
      *     message="The value {{ value }} is not a valid {{ type }}."
      * )
@@ -47,7 +48,7 @@ class Entry
     private $time;
 
     /** @ORM\Column(type="decimal")
-     *  @Assert\Type(
+     * @Assert\Type(
      *     type="integer",
      *     message="The value {{ value }} is not a valid {{ type }}."
      * )
@@ -161,9 +162,6 @@ class Entry
     {
         $this->avg_speed = $avg_speed;
     }
-
-
-
 
 
 }

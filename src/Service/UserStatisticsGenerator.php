@@ -31,23 +31,25 @@ class UserStatisticsGenerator
             ->findAll();
 
         // Convert into a array / dictionary where id of the user is key and the user itself is the value
-        $user_ids = array_map(function ($user) { return $user->getId();}, $users);
+        $user_ids = array_map(function ($user) {
+            return $user->getId();
+        }, $users);
         $users = array_combine($user_ids, $users);
 
         //Get all entries
-        $entries =$this->em
+        $entries = $this->em
             ->getRepository(Entry::class)
             ->findAll();
 
         // Fill with default values
         $entriesPerUser = null;
-        foreach ($users as $user){
+        foreach ($users as $user) {
             $user->days_trained = 0;
             $user->entire_distance = 0;
         }
 
         //Go through each entry and create statistics
-        foreach($entries as $entry){
+        foreach ($entries as $entry) {
             $users[$entry->getUserId()]->entire_distance += $entry->getDistance();
             $users[$entry->getUserId()]->days_trained += 1;
         }
@@ -59,12 +61,13 @@ class UserStatisticsGenerator
      * @param $username a certain username to search for in database
      * @return object|null a certain user including some statistics or null in case no user with certain username was found
      */
-    public function getStatisticsUser(string $username){
+    public function getStatisticsUser(string $username)
+    {
         $user = $this->em
             ->getRepository(User::class)
             ->findOneBy(['name' => $username]);
         //Get all user entries
-        if($user){
+        if ($user) {
             $entries = $this->em
                 ->getRepository(Entry::class)
                 ->findBy(['user_id' => $user->getId()]);

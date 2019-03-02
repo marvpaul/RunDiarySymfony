@@ -1,64 +1,70 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}{% trans %}Welcome{% endtrans %}{% endblock %}</title>
-        {% block stylesheets %}
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
-            <link href="{{ asset('bootswacht.css') }}" rel="stylesheet">
-            <link href="{{ asset('style.css') }}" rel="stylesheet">
-            <link href="{{ asset('animate.css') }}" rel="stylesheet">
-            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-        {% endblock %}
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    </head>
-    <body>
-        {% block body %}
-        <div class="container">
-            {# Took from here --> https://symfony.com/doc/current/controller.html #}
-            {# read and display all flash messages #}
-            {% for label, messages in app.flashes %}
-                {% for message in messages %}
-                    <div class="animated fadeInDown alert flash flash-{{ label }}">
-                        <i class="fas fa-info"></i>   {{ message }}
-                    </div>
-                {% endfor %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% trans %}Welcome{% endtrans %}{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+        <link href="{{ asset('bootswacht.css') }}" rel="stylesheet">
+        <link href="{{ asset('style.css') }}" rel="stylesheet">
+        <link href="{{ asset('animate.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+              integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+              crossorigin="anonymous">
+    {% endblock %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+</head>
+<body>
+{% block body %}
+    <div class="container">
+        {# Took from here --> https://symfony.com/doc/current/controller.html #}
+        {# read and display all flash messages #}
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="animated fadeInDown alert flash flash-{{ label }}">
+                    <i class="fas fa-info"></i> {{ message }}
+                </div>
             {% endfor %}
+        {% endfor %}
 
 
-            {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+        {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
 
-            <h1 style="text-align: center; "><a href="{{ path('index') }}"><i class="fab fa-algolia"></i> {% trans %}My awesome run diary{% endtrans %}</a></h1>
+        <h1 style="text-align: center; "><a href="{{ path('index') }}"><i
+                        class="fab fa-algolia"></i> {% trans %}My awesome run diary{% endtrans %}</a></h1>
 
-            <div class="row">
-                <div class="col-6">
+        <div class="row">
+            <div class="col-6">
                 {% if is_granted("ROLE_USER") %}
                     {% trans %}Hi{% endtrans %} {{ app.user.name }} <br>
                     <a href="{{ path('logout') }}">{% trans %}Logout{% endtrans %}</a>?
                 {% elseif not is_granted("ROLE_USER") and 'login' not in currentPath %}
-                    {% trans %}Hi there, {% endtrans %}<br> <a href="{{ path('login') }}"> {% trans %}Login{% endtrans %}</a>?
+                    {% trans %}Hi there, {% endtrans %}<br> <a
+                        href="{{ path('login') }}"> {% trans %}Login{% endtrans %}</a>?
                 {% endif %}
-                </div>
-                <div class="col-6" style="text-align: right;">
-                    <a id="change_de" href="{{ path('language', {'language': 'de_DE'}) }}">{% trans %} German {% endtrans %}</a>
-                    <br>
-                    <a id="change_en"href="{{ path('language', {'language': 'en_US'}) }}">{% trans %} English {% endtrans %}</a>
-                </div>
             </div>
-
-            {% block content %}{% endblock %}
+            <div class="col-6" style="text-align: right;">
+                <a id="change_de"
+                   href="{{ path('language', {'language': 'de_DE'}) }}">{% trans %} German {% endtrans %}</a>
+                <br>
+                <a id="change_en"
+                   href="{{ path('language', {'language': 'en_US'}) }}">{% trans %} English {% endtrans %}</a>
+            </div>
         </div>
-        {% endblock %}
-        {% block javascripts %}
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-            <script>
-                setTimeout(function() {
-                    $(".flash").addClass("fadeOutUp");
-                }, 5000);
-            </script>
-        {% endblock %}
-    </body>
+
+        {% block content %}{% endblock %}
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        setTimeout(function () {
+            $(".flash").addClass("fadeOutUp");
+        }, 5000);
+    </script>
+{% endblock %}
+</body>
 </html>

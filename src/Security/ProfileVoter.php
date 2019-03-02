@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Security;
 
 use App\Entity\User;
@@ -11,7 +12,6 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
  * Date: 14.12.17
  * Time: 16:03
  */
-
 class ProfileVoter extends Voter
 {
 

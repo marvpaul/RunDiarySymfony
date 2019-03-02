@@ -9,10 +9,12 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class MyUserFixture extends Fixture {
+class MyUserFixture extends Fixture
+{
     private $encoder;
 
-    public function __construct(UserPasswordEncoderInterface $encoder) {
+    public function __construct(UserPasswordEncoderInterface $encoder)
+    {
         $this->encoder = $encoder;
     }
 
@@ -20,7 +22,8 @@ class MyUserFixture extends Fixture {
      * Simple fixture to create mock user data.
      * @param ObjectManager $manager
      */
-    public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager)
+    {
         $user1 = new User();
         $user1->setName('peter');
         $user1->setPass($this->encoder->encodePassword($user1, 'p4s5w0rt'));

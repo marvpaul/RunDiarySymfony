@@ -12,10 +12,12 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Validator\Constraints\Date;
 
-class MyEntryFixture extends Fixture {
+class MyEntryFixture extends Fixture
+{
     private $encoder;
 
-    public function __construct(UserPasswordEncoderInterface $encoder) {
+    public function __construct(UserPasswordEncoderInterface $encoder)
+    {
         $this->encoder = $encoder;
     }
 
@@ -24,7 +26,8 @@ class MyEntryFixture extends Fixture {
      * @param ObjectManager $manager
      * @throws \Exception
      */
-    public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager)
+    {
         $entry1 = new Entry();
         $entry1->setAvgSpeed(10.0);
         $dateInput = "2014-01-01";

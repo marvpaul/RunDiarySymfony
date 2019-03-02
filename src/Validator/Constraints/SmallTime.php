@@ -5,6 +5,7 @@
  * Date: 14.12.17
  * Time: 17:55
  */
+
 namespace App\Validator\Constraints;
 
 /**

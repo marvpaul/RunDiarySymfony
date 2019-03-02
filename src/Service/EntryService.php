@@ -47,18 +47,19 @@ class EntryService
         $this->em->flush();
     }
 
-    public function parseEntryFromForm($form, $userId){
+    public function parseEntryFromForm($form, $userId)
+    {
         $distance = $form[$this->trans->trans('Distance')]->getData();
         $date = $form[$this->trans->trans('Date')]->getData();
         $time = $form[$this->trans->trans('Time')]->getData();
-        $hours = (float)($time->getTimestamp()+3600) / 60 / 60;
+        $hours = (float)($time->getTimestamp() + 3600) / 60 / 60;
         $entry = new Entry();
         $entry->setDate($date);
         $entry->setDistance($distance);
         $entry->setUserId($userId);
         $entry->setTime($hours);
 
-        if($hours > 0){
+        if ($hours > 0) {
             //Set avg speed
             $avg_speed = round($entry->getDistance() / $entry->getTime(), 2);
             $entry->setAvgSpeed($avg_speed);
