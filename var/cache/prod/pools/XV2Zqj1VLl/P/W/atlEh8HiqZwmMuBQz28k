@@ -1,3 +1,0 @@
-1544834017
-%255BApp%255CEntity%255CEntry%2524date%255D%255B1%255D
-a:3:{i:0;O:27:"Doctrine\ORM\Mapping\Column":9:{s:4:"name";N;s:4:"type";s:4:"date";s:6:"length";N;s:9:"precision";i:0;s:5:"scale";i:0;s:6:"unique";b:0;s:8:"nullable";b:0;s:7:"options";a:0:{}s:16:"columnDefinition";N;}i:1;O:44:"Symfony\Component\Validator\Constraints\Type":4:{s:7:"message";s:48:"The value {{ value }} is not a valid {{ type }}.";s:4:"type";s:8:"datetime";s:7:"payload";N;s:6:"groups";a:1:{i:0;s:7:"Default";}}i:2;O:48:"Symfony\Component\Validator\Constraints\LessThan":5:{s:7:"message";s:22:"Date cant be in future";s:5:"value";s:3:"now";s:12:"propertyPath";N;s:7:"payload";N;s:6:"groups";a:1:{i:0;s:7:"Default";}}}
