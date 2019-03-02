@@ -22,7 +22,8 @@
 
      },
      "require-dev": {
-         "symfony/profiler-pack": "^1.0"
+         "symfony/profiler-pack": "^1.0",
+        "fadoe/standalone-webserver": "^0.1.1"
      },
     "scripts": {
         "auto-scripts": {

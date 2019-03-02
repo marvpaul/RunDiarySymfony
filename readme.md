@@ -3,6 +3,12 @@
 This is a multiuser run diary with several entries builded with symfony.
 
 ## Development setup 
+At first you've to run: 
+```
+composer install --dev
+```
+to install all dependencies including development packages.
+
 ### Loading mock data
 For creating database using the provided entity metadata as schema and add some mock data, please run following commands: 
 ```
