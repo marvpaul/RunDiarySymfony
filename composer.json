@@ -28,13 +28,13 @@
     "symfony/yaml": "*",
     "twig/extensions": "^1.5",
     "twig/twig": "^2.6",
-    "doctrine/doctrine-fixtures-bundle": "^3.0"
+    "doctrine/doctrine-fixtures-bundle": "^3.0",
+    "symfony/dotenv": "*"
   },
   "require-dev": {
     "dama/doctrine-test-bundle": "^5.0",
     "symfony/css-selector": "*",
     "symfony/debug-bundle": "*",
-    "symfony/dotenv": "*",
     "symfony/phpunit-bridge": "*",
     "symfony/web-profiler-bundle": "*",
     "symfony/web-server-bundle": "4.2.*"
