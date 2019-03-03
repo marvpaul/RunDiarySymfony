@@ -37,7 +37,7 @@
     "symfony/dotenv": "*",
     "symfony/phpunit-bridge": "*",
     "symfony/web-profiler-bundle": "*",
-    "symfony/web-server-bundle": "*"
+    "symfony/web-server-bundle": "4.2.*"
   },
   "config": {
     "platform": {
