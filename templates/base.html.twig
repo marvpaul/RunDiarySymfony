@@ -17,16 +17,17 @@
 </head>
 <body>
 {% block body %}
-    <div class="container">
-        {# Took from here --> https://symfony.com/doc/current/controller.html #}
-        {# read and display all flash messages #}
-        {% for label, messages in app.flashes %}
-            {% for message in messages %}
-                <div class="animated fadeInDown alert flash flash-{{ label }}">
-                    <i class="fas fa-info"></i> {{ message }}
-                </div>
-            {% endfor %}
+    {# Took from here --> https://symfony.com/doc/current/controller.html #}
+    {# read and display all flash messages #}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="animated fadeInDown alert flash flash-{{ label }}">
+                <i class="fas fa-info"></i> {{ message }}
+            </div>
         {% endfor %}
+    {% endfor %}
+    <div class="container">
+
 
 
         {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}

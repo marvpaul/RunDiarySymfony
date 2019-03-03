@@ -6,6 +6,7 @@ use App\Entity\Entry;
 use App\Entity\User;
 use App\Service\UserStatisticsGenerator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -21,7 +22,7 @@ use Symfony\Component\Validator\Constraints\DateTime;
 use App\Form\Type\UserSearchType;
 use Symfony\Component\Translation\TranslatorInterface;
 
-class DefaultController extends Controller
+class DefaultController extends AbstractController
 {
 
 

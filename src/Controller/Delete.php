@@ -5,13 +5,14 @@ namespace App\Controller;
 use App\Service\EntryService;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
-class Delete extends Controller
+class Delete extends AbstractController
 {
     /**
      * Route to delete a certain entry given a userId and an entryId.

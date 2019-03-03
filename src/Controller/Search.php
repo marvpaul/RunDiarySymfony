@@ -5,6 +5,7 @@ namespace App\Controller;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +14,7 @@ use App\Entity\User;
 use App\Entity\Entry;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class Search extends Controller
+class Search extends AbstractController
 {
 
     /**

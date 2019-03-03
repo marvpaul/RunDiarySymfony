@@ -7,6 +7,7 @@ use App\Service\EntryService;
 use App\Service\UserStatisticsGenerator;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -21,7 +22,7 @@ use App\Entity\User;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
-class Profile extends Controller
+class Profile extends AbstractController
 {
     /**
      * Route for showing a certain profile which is specified by username param.

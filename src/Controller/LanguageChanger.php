@@ -10,6 +10,7 @@ namespace App\Controller;
 
 use App\Entity\Entry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,7 +25,7 @@ use App\Entity\User;
 use Symfony\Component\Translation\Loader\XliffFileLoader;
 use Symfony\Component\Translation\Translator;
 
-class LanguageChanger extends Controller
+class LanguageChanger extends AbstractController
 {
     /**
      * Route to change language. You can at the moment choose between english and german by using either de_DE or en_US
