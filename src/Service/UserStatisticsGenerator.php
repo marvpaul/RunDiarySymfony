@@ -58,8 +58,9 @@ class UserStatisticsGenerator
     }
 
     /**
-     * @param $username a certain username to search for in database
+     * @param string $username a certain username to search for in database
      * @return object|null a certain user including some statistics or null in case no user with certain username was found
+     * @throws \Exception
      */
     public function getStatisticsUser(string $username)
     {
@@ -72,10 +73,10 @@ class UserStatisticsGenerator
                 ->getRepository(Entry::class)
                 ->findBy(['user_id' => $user->getId()]);
 
-            $entire_disance = 0;
+            $entire_distance = 0;
             $days_between = 0;
             foreach ($entries as $entry) {
-                $entire_disance += $entry->getDistance();
+                $entire_distance += $entry->getDistance();
             }
 
             if (count($entries) >= 2) {
@@ -90,7 +91,7 @@ class UserStatisticsGenerator
             $user->entries = $entries;
             $user->days_trained = count($entries);
             $user->entire_time = $days_between;
-            $user->entire_distance = $entire_disance;
+            $user->entire_distance = $entire_distance;
             return $user;
         } else {
             return null;

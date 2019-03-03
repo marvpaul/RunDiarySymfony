@@ -62,8 +62,10 @@ class ProfileControllerTest extends WebTestCase
         $this->client->request('GET', '/profile/marvin');
 
         $content = $this->client->getResponse()->getContent();
+        $location = $this->client->getRequest()->getUri();
+
         $this->assertTrue(strpos($content, "Delete") === false);
-        $this->assertTrue(strpos($content, "Username -> marvin") !== false);
+        $this->assertTrue(strpos($location, "profile/marvin") !== false);
     }
 
     /**

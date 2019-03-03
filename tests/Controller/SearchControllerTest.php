@@ -36,8 +36,17 @@ class SearchControllerTest extends WebTestCase
      */
     public function testValidResponseForExistingUser()
     {
-        $this->client->request('GET', '/search_user');
-        //TODO: Here we've to add a form which includes name field, send it in request and check for expected response
+        $crawler = $this->client->request('GET', '/');
+
+        $form = $crawler->filter('form')->form();
+
+        $form['form[name]'] = 'marvin';
+
+        // submit the form and follow redirection
+        $this->client->submit($form);
+        $this->client->followRedirect();
+        $location = $this->client->getRequest()->getUri();
+        $this->assertTrue(strpos($location, "profile/marvin") !== false);
     }
 
 }

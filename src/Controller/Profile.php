@@ -21,6 +21,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use App\Entity\User;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Profile extends AbstractController
 {
@@ -43,6 +44,7 @@ class Profile extends AbstractController
         EntryService $entryService,
         UserStatisticsGenerator $userStatisticsGenerator,
         TranslatorInterface $translator,
+        ValidatorInterface $validator,
         UserInterface $loggedin_user = null
     ) {
         //Get the current userWithStatistics object and enrich with stats
@@ -64,8 +66,7 @@ class Profile extends AbstractController
             // Retrieve entry data from form
             $entry = $entryService->parseEntryFromForm($form, $loggedin_user->getId());
 
-            // Check for errors
-            $validator = $this->get('validator');
+            // Check for error
             $errors = $validator->validate($entry);
             if (count($errors) > 0) {
                 //Render user template with errors

@@ -21,7 +21,6 @@ class DefaultControllerTest extends WebTestCase
         $this->client = static::createClient();
 
         $crawler = $this->client->request('GET', '/');
-
         $link = $crawler
             ->filter('a:contains("Englisch")')
             ->eq(0)
@@ -46,25 +45,6 @@ class DefaultControllerTest extends WebTestCase
         $this->client->request('GET', '/');
 
         $this->assertTrue(strpos($this->client->getResponse()->getContent(), "My awesome run diary") !== False);
-    }
-
-    /**
-     * Check if changing the language does really translate the page
-     */
-    public function testLanguageChanging(){
-
-        $crawler = $this->client->request('GET', '/');
-
-        $link = $crawler
-            ->filter('a:contains("German")')
-            ->eq(0)
-            ->link()
-        ;
-
-        $this->client->click($link);
-        $this->client->followRedirect();
-
-        $this->assertTrue(strpos($this->client->getResponse()->getContent(), "Mein wunderschönes Lauftagebuch") !== False);
     }
 
     /**
@@ -136,7 +116,9 @@ class DefaultControllerTest extends WebTestCase
         $this->client->click($link);
 
         // Should redirect to main page again
-        $this->assertTrue(strpos($this->client->getResponse()->getContent(), "My awesome run diary") !== False);
+        $location = $this->client->getRequest()->getUri();
+        $this->assertTrue(strpos($location, "/") !== false);
+        $this->assertTrue(strpos($location, "/profile") === false);
     }
 
 
