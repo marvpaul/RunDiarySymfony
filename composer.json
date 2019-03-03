@@ -27,11 +27,11 @@
     "symfony/webpack-encore-bundle": "^1.1",
     "symfony/yaml": "*",
     "twig/extensions": "^1.5",
-    "twig/twig": "^2.6"
+    "twig/twig": "^2.6",
+    "doctrine/doctrine-fixtures-bundle": "^3.0"
   },
   "require-dev": {
     "dama/doctrine-test-bundle": "^5.0",
-    "doctrine/doctrine-fixtures-bundle": "^3.0",
     "symfony/css-selector": "*",
     "symfony/debug-bundle": "*",
     "symfony/dotenv": "*",
