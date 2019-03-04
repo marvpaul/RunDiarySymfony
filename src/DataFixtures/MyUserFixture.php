@@ -49,6 +49,11 @@ class MyUserFixture extends Fixture
         $user5->setPass($this->encoder->encodePassword($user5, 'sth'));
         $manager->persist($user5);
 
+        $user6 = new User();
+        $user6->setName('rico');
+        $user6->setPass($this->encoder->encodePassword($user6, 'rico'));
+        $manager->persist($user5);
+
         print("Creating some users");
         $manager->flush();
 
