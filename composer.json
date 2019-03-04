@@ -1,8 +1,8 @@
 {
-  "name": "symfony/symfony-demo",
+  "name": "run_diary",
   "license": "MIT",
   "type": "project",
-  "description": "Symfony Demo Application",
+  "description": "run diary",
   "require": {
     "php": "^7.1.9",
     "ext-pdo_sqlite": "*",
