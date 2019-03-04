@@ -2,6 +2,10 @@
 
 This is a multiuser run diary with several entries builded with symfony.
 
+## Preview
+![Preview](preview.png)
+
+
 ## Development setup 
 At first you've to run: 
 ```
